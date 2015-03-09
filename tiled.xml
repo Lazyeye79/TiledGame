@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://ns.adobe.com/air/application/3.8">
+	<id>com.Lazyeye79.TiledGame</id>
+	<name>Tiled Game</name>
+	<versionNumber>15.02.02</versionNumber>
+	<filename>Tiled Game</filename>
+	<initialWindow>
+		<content>tiled.swf</content>
+		<renderMode>direct</renderMode>
+		<autoOrients>false</autoOrients>
+		<aspectRatio>landscape</aspectRatio>
+	</initialWindow>
+</application>
