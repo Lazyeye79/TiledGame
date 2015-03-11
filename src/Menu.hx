@@ -1,13 +1,19 @@
 import starling.display.*;
 
 
-class Menu extends Sprite
-{
-	public static var menu : Menu;
+class Menu extends Sprite{
+	public var rootSprite : Sprite;
 
-	public function new()
+	public function new(rootSprite:Sprite)
 	{
 		super();
-		menu = this;
+		this.rootSprite = rootSprite;
+		start();
+
+	}
+
+	public function start(){
+		var game = new Game(rootSprite);
+		rootSprite.addChild(game);
 	}
 }
