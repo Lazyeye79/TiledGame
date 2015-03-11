@@ -20,9 +20,16 @@ class Game extends Sprite{
 					var starArray = new Array();
 					starArray[0] = "star1a";
 					starArray[1] = "star2a";
-					starArray[2] = "star3a";
-					starArray[3] = "starB";
-					var stars = new Image(Root.assets.getTexture(starArray[Std.random(4)]));
+					starArray[2] = "starB";
+
+					var num:Int = Std.random(10);
+					var stars:Image;
+					if (num > 1)
+					{
+						stars = new Image(Root.assets.getTexture(starArray[2]));
+
+					}
+					else stars = new Image(Root.assets.getTexture(starArray[num]));
 					stars.x = 0 + x*16;
 					stars.y = 0 + y*16;
 					rootSprite.addChild(stars);
