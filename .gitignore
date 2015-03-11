@@ -30,4 +30,5 @@ com_crashlytics_export_strings.xml
 
 *.swf
 Makefile
+makefile
 *.db
