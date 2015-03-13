@@ -1,0 +1,9 @@
+Movement:
+Display money:
+create meteors:
+destroy meteors:
+lazers:
+enemies:
+store:
+Menue:
+
