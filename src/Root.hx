@@ -20,6 +20,11 @@ class Root extends Sprite {
 		assets.enqueue("assets/star2a.png");
 		assets.enqueue("assets/star3a.png");
 		assets.enqueue("assets/starB.png");
+		assets.enqueue("assets/meteorCorner.png");
+		assets.enqueue("assets/meteorFull.png");
+		assets.enqueue("assets/meteorSide.png");
+		assets.enqueue("assets/meteorGold.png");
+
 		
 		assets.loadQueue(function onProgress(ratio:Float) {
 			if (ratio == 1) {
