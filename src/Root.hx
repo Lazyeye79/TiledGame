@@ -24,6 +24,8 @@ class Root extends Sprite {
 		assets.enqueue("assets/meteorFull.png");
 		assets.enqueue("assets/meteorSide.png");
 		assets.enqueue("assets/meteorGold.png");
+		
+		assets.enqueue("assets/Button.png");
 
 		
 		assets.loadQueue(function onProgress(ratio:Float) {
