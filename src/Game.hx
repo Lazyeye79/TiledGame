@@ -4,6 +4,7 @@ import starling.events.Event;
 import starling.events.EnterFrameEvent;
 import starling.events.KeyboardEvent;
 
+
 class Game extends Sprite{
 	public var rootSprite:Sprite;
 	private var map:Array<Array<Int>>;
@@ -23,6 +24,7 @@ class Game extends Sprite{
 
 		var ship:Image;
 		var world:World;
+		var mapGenerator:GenerateMap;
 
 	public function new(rootSprite:Sprite){
 		super();
@@ -31,14 +33,14 @@ class Game extends Sprite{
 	}
 
 	public function run(){
+
 		world = new World();
-		rootSprite.addChild(world);
-		var mapGenerator = new GenerateMap(world);
+		mapGenerator = new GenerateMap(world);
+		
 		
 		ship = new Image(Root.assets.getTexture("ship"));
 		ship.x = 100;
 		ship.y = 100;
-		rootSprite.addChild(ship);
 
 		rootSprite.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
 		rootSprite.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
@@ -51,17 +53,33 @@ class Game extends Sprite{
 
 	}
 
+	public function updateMap(){
+		rootSprite.removeChild(world);
+
+		for (x in 0...52){
+			for (y in 0 ... 42){
+				world.addChild(mapGenerator.stars[(Math.floor(world.x/16) + x)][(Math.floor(world.y/16) + y)]);
+			}
+		}
+
+		rootSprite.addChild(world);
+	}
+
 	public function onEnterFrame(event:EnterFrameEvent){
 
 		updateVelocity();
+		updateMap();
 
 		ship.x += vx;
 		ship.y += vy;
 
-		// if(ship.x > 400)
-		// {
-		// 	world.x -= vx;
-		// }
+		rootSprite.removeChild(ship);
+		rootSprite.addChild(ship);
+
+		if(ship.x > 300)
+		{
+		 	world.x -= vx;
+		}
 
 	}
 
