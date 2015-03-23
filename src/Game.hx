@@ -28,7 +28,7 @@ class Game extends Sprite{
 
 		//Gloabal x and y for the window position
 		var fx:Float = 0;
-		var fy: Float = 0;
+		var fy: Float= 0;
 
 		var ship:Image;
 		var world:World;
@@ -44,12 +44,14 @@ class Game extends Sprite{
 
 		world = new World();
 		mapGenerator = new GenerateMap(world);
+		world.x = -32;
+		world.y = -32;
 		
 		
 		
 		ship = new Image(Root.assets.getTexture("ship"));
-		ship.x = 120;
-		ship.y = 120;
+		ship.x = fx + 300;
+		ship.y = fy + 250;
 
 		gx = ship.x;
 		gy = ship.y;
@@ -77,12 +79,13 @@ class Game extends Sprite{
 		}	
 		
 
-
-		for (x in 0...52){
-			for (y in 0 ... 42){
+		for (x in 0...54){
+			for (y in 0 ... 44){
 				world.addChild(mapGenerator.stars[(x + Math.floor((fx)/16))][(y + Math.floor((fy)/16))]);
 			}
 		}
+
+		
 	}
 
 	public function onEnterFrame(event:EnterFrameEvent){
@@ -99,7 +102,7 @@ class Game extends Sprite{
 		rootSprite.removeChild(ship);
 		rootSprite.addChild(ship);
 
-		if(ship.x > 300)
+		if(ship.x > 500)
 		{
 		 	world.x -= vx;
 		 	ship.x -= vx;
@@ -107,7 +110,7 @@ class Game extends Sprite{
 		 	fx += vx;
 		}
 
-		if(ship.y > 300)
+		if(ship.y > 400)
 		{
 		 	world.y -= vy;
 		 	ship.y -= vy;
