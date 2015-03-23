@@ -8,10 +8,10 @@ class GenerateMap{
 	public function new(world:World){
 
 		map = [for(x in 0...100) [for (y in 0...100) 0]];
-		map[4][4] = 1;
-		map[5][4] = 4;
-		map[6][4] = 1;
-		map[5][5] = 2;
+		// map[4][4] = 1;
+		// map[5][4] = 4;
+		// map[6][4] = 1;
+		// map[5][5] = 2;
 
 		stars = [for(x in 0...100) [for (y in 0...100) new Star(0,0)]];
 
