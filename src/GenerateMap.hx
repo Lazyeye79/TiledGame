@@ -2,16 +2,16 @@ import starling.display.Image;
 
 
 class GenerateMap{
-	private var map:Array<Array<Int>>;
+	public var map:Array<Array<Int>>;
 	public var stars:Array<Array<Star>>;
 
 	public function new(world:World){
 
 		map = [for(x in 0...500) [for (y in 0...500) 0]];
-		// map[4][4] = 1;
-		// map[5][4] = 4;
-		// map[6][4] = 1;
-		// map[5][5] = 2;
+		map[4][4] = 1;
+		map[5][4] = 4;
+		map[6][4] = 1;
+		map[5][5] = 2;
 
 		stars = [for(x in 0...500) [for (y in 0...500) new Star(0,0)]];
 
