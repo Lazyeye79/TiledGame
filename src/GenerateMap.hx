@@ -3,7 +3,7 @@ import starling.display.Image;
 
 class GenerateMap{
 	public var map:Array<Array<Int>>;
-	public var stars:Array<Array<Star>>;
+	public var tiles:Array<Array<Tile>>;
 
 	public function new(world:World){
 
@@ -13,16 +13,16 @@ class GenerateMap{
 		map[6][4] = 1;
 		map[5][5] = 2;
 
-		stars = [for(x in 0...500) [for (y in 0...500) new Star(0,0)]];
+		tiles = [for(x in 0...500) [for (y in 0...500) new Tile(0,0)]];
 
 			
 		for (x in 0...500){
 			for (y in 0 ... 500){
 				if (map[x][y]==0){
-					stars[x][y] = new Star(x*16, y*16);
+					tiles[x][y] = new Tile(x*16, y*16);
 				}
 				else{
-					var asteroid = new Asteroid(x*16, y*16, map[x][y]);
+					var asteroid = new Tile(x*16, y*16, map[x][y]);
 
 					//Corner correction
 					if(map[x+1][y] > 1)
@@ -31,8 +31,9 @@ class GenerateMap{
 						asteroid.y += 16;
 					}
 
+					tiles[x][y] = asteroid;
 
-					world.addChild(asteroid);
+
 				}
 			}
 		}

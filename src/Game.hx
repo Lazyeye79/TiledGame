@@ -81,7 +81,7 @@ class Game extends Sprite{
 
 		for (x in 0...54){
 			for (y in 0 ... 44){
-				world.addChild(mapGenerator.stars[(x + Math.floor((fx)/16))][(y + Math.floor((fy)/16))]);
+				world.addChild(mapGenerator.tiles[(x + Math.floor((fx)/16))][(y + Math.floor((fy)/16))]);
 			}
 		}
 
