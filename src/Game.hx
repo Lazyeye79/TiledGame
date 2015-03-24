@@ -199,7 +199,12 @@ class Game extends Sprite{
 		
 		if(vy > 0) vy -= .03;
 		if(vy < 0) vy += .03;
+
+		if (vx > 8) vx = 8;
+		if (vx < -8) vx = -8;
 		
+		if (vy > 8) vy = 8;
+		if (vy < -8) vy = -8;
 	}
 
 }
