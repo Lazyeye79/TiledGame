@@ -37,7 +37,7 @@ class Menu extends Sprite{
 		switch(state)
 		{
 			case Menu:
-				title = new MenuText(350,100,"Pirate Space Mining");
+				title = new MenuText(350,100,"Space Cruise");
 				title.fontSize = 50;
 				title.y = 50;
 				addChild(title);
