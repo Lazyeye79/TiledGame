@@ -126,6 +126,11 @@ class Game extends Sprite{
 		 	fx += vx;
 		}
 		
+		if (gx < 2 || gx > (mapGenerator.map.length * 16))
+		{
+			ship.x -= 2;
+			vx = -vx;
+		}
 		
 
 		if(ship.y < 100 && gy > 100)
@@ -136,6 +141,11 @@ class Game extends Sprite{
 		 	fy += vy;
 		}
 		
+		if (gy < 2 || gy > (mapGenerator.map.length * 16))
+		{
+			ship.y -= 2;
+			vy = -vy;
+		}
 		
 
 	}
@@ -169,19 +179,19 @@ class Game extends Sprite{
 	private function updateVelocity(){
 		
 		if(keyMap.get( K_UP )){
-			vy -= 0.2;
+			vy -= 0.3;
 		}
 
 		if(keyMap.get( K_DOWN )){
-			vy += 0.2;
+			vy += 0.3;
 		}
 
 		if(keyMap.get( K_LEFT )){
-			vx -= 0.2;
+			vx -= 0.3;
 		}
 
 		if(keyMap.get( K_RIGHT )){
-			vx += 0.2;
+			vx += 0.3;
 		}
 
 		if(vx > 0) vx -= .03;
