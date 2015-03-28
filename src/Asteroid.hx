@@ -7,7 +7,6 @@ class Asteroid extends Image{
 	private var player:Image;
 	private var playerBounds:Rectangle;
 	public var nameClass:String = "Asteroid";
-	public var asteroidImage:Image;
 
 	public function new(meteor:String){
 		super(Root.assets.getTexture(meteor));

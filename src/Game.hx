@@ -193,7 +193,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
-				trace("You're hitting an steroid!");
+				trace("You're hitting an asteroid!");
 			}
 		}
 		
@@ -283,5 +283,4 @@ class Game extends Sprite{
 			world.addChild(asteroid[num]);
 		}
 	}
-
 }
