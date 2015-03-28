@@ -21,8 +21,8 @@ class Pickup extends Image{
 		this.player = player;
 		boundingBox = this.bounds;
 		playerBounds = player.bounds;
-		trace(player);
-		trace(boundingBox);
+		//trace(player);
+		//trace(boundingBox);
 		if (playerBounds.intersects(boundingBox)){
 			return true;
 		}
