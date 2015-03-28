@@ -7,17 +7,17 @@ class GenerateMap{
 
 	public function new(world:World){
 
-		map = [for(x in 0...500) [for (y in 0...500) 0]];
+		map = [for(x in 0...100) [for (y in 0...100) 0]];
 		map[4][4] = 1;
 		map[5][4] = 4;
 		map[6][4] = 1;
 		map[5][5] = 2;
 
-		tiles = [for(x in 0...500) [for (y in 0...500) new Tile(0,0)]];
+		tiles = [for(x in 0...100) [for (y in 0...100) new Tile(0,0)]];
 
 			
-		for (x in 0...500){
-			for (y in 0 ... 500){
+		for (x in 0...100){
+			for (y in 0 ... 100){
 				if (map[x][y]==0){
 					tiles[x][y] = new Tile(x*16, y*16);
 				}

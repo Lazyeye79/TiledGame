@@ -10,12 +10,21 @@ class Game extends Sprite{
 	public var rootSprite:Sprite;
 	private var map:Array<Array<Int>>;
 	private var pickupObject:Pickup;
+	
+	private var asteroid:Array<Asteroid>;
 
 	// Numerical key codes for WASD
 		public var K_UP : Int	 = 87;
 		public var K_LEFT : Int	 = 65;
 		public var K_DOWN : Int	 = 83;
 		public var K_RIGHT : Int = 68;
+
+		public var D_UP : Int = 38;
+		public var D_DOWN : Int = 40;
+		public var D_LEFT : Int = 37;
+		public var D_RIGHT : Int = 39;
+
+
 
 		//Map to keep track of what keys are being pressed
 		private var keyMap : Map<Int, Bool> = new Map<Int, Bool>();
@@ -42,7 +51,9 @@ class Game extends Sprite{
 		run();
 	}
 
-	public function run(){
+	public function run() {
+		
+		asteroid = new Array<Asteroid>();
 
 		world = new World();
 		mapGenerator = new GenerateMap(world);
@@ -69,10 +80,20 @@ class Game extends Sprite{
 		keyMap.set(K_DOWN, false); 	// S (down)
 		keyMap.set(K_RIGHT, false); // D (right)
 
-		pickupObject = new Pickup();
-		pickupObject.x = 100;
-		pickupObject.y = 100;
+		keyMap.set(D_UP, false); 	// arrow (up)
+		keyMap.set(D_LEFT, false); 	// arrow (left)
+		keyMap.set(D_DOWN, false); 	// arrow (down)
+		keyMap.set(D_RIGHT, false); // arrow (right)
+
+
+
+
+		pickupObject = new Pickup("ship");
+		pickupObject.x = 1;
+		pickupObject.y = 1;
 		world.addChild(pickupObject);
+		
+		generateAsteroids();
 
 	}
 
@@ -168,6 +189,10 @@ class Game extends Sprite{
 			trace("HIT");
 		}
 		
+		if (asteroid[0].collisionTest(ship) == true) {
+			trace("You're hitting an steroid!");
+		}
+		
 
 	}
 
@@ -194,24 +219,40 @@ class Game extends Sprite{
 	}
 
 	private function isBound( keyCode:Int ) : Bool {
-		return (keyCode == K_UP || keyCode == K_LEFT || keyCode == K_DOWN || keyCode == K_RIGHT);
+		return (keyCode == K_UP || keyCode == K_LEFT || keyCode == K_DOWN || keyCode == K_RIGHT || keyCode == D_UP || keyCode == D_LEFT || keyCode == D_DOWN || keyCode == D_RIGHT);
 	}
 
 	private function updateVelocity(){
 		
-		if(keyMap.get( K_UP )){
+		if(keyMap.get( K_UP)){
 			vy -= 0.3;
 		}
 
-		if(keyMap.get( K_DOWN )){
+		if(keyMap.get( K_DOWN)){
 			vy += 0.3;
 		}
 
-		if(keyMap.get( K_LEFT )){
+		if(keyMap.get( K_LEFT)){
 			vx -= 0.3;
 		}
 
-		if(keyMap.get( K_RIGHT )){
+		if(keyMap.get( K_RIGHT)){
+			vx += 0.3;
+		}
+
+		if(keyMap.get( D_UP)){
+			vy -= 0.3;
+		}
+
+		if(keyMap.get( D_DOWN)){
+			vy += 0.3;
+		}
+
+		if(keyMap.get( D_LEFT)){
+			vx -= 0.3;
+		}
+
+		if(keyMap.get( D_RIGHT)){
 			vx += 0.3;
 		}
 
@@ -226,6 +267,19 @@ class Game extends Sprite{
 		
 		if (vy > 8) vy = 8;
 		if (vy < -8) vy = -8;
+	}
+	
+	
+	private function generateAsteroids() {
+		var num;
+		for (num 0...10) {
+			asteroid[num] = new Asteroid("meteor1");
+			asteroid[num].x = Std.random(20);
+			asteroid[num].y = Std.random(20);
+			asteroid[num].x = 15;
+			asteroid[num].y = 15;
+			world.addChild(asteroid[0]);
+		}
 	}
 
 }
