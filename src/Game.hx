@@ -10,6 +10,18 @@ class Game extends Sprite{
 	public var rootSprite:Sprite;
 	private var map:Array<Array<Int>>;
 	private var pickupObject:Pickup;
+	public var fuel:Int;
+	public var fuel10:Image;
+	public var fuel9:Image;
+	public var fuel8:Image;
+	public var fuel7:Image;
+	public var fuel6:Image;
+	public var fuel5:Image;
+	public var fuel4:Image;
+	public var fuel3:Image;
+	public var fuel2:Image;
+	public var fuel1:Image;
+	public var fuel0:Image;
 	
 	private var asteroid:Array<Asteroid>;
 
@@ -69,7 +81,58 @@ class Game extends Sprite{
 		gx = ship.x;
 		gy = ship.y;
 
+		fuel10 = new Image(Root.assets.getTexture("fuel10"));
+		fuel10.x = 100;
+		fuel10.y = 100;
+		
+		fuel9 = new Image(Root.assets.getTexture("fuel9"));
+		fuel9.x = 100;
+		fuel9.y = 100;
 
+		fuel8 = new Image(Root.assets.getTexture("fuel8"));
+		fuel8.x = 100;
+		fuel8.y = 100;
+		
+		fuel7 = new Image(Root.assets.getTexture("fuel7"));
+		fuel7.x = 100;
+		fuel7.y = 100;
+
+		fuel6 = new Image(Root.assets.getTexture("fuel6"));
+		fuel6.x = 100;
+		fuel6.y = 100;
+		
+		fuel5 = new Image(Root.assets.getTexture("fuel5"));
+		fuel5.x = 100;
+		fuel5.y = 100;
+
+		fuel4 = new Image(Root.assets.getTexture("fuel4"));
+		fuel4.x = 100;
+		fuel4.y = 100;
+	
+		fuel3 = new Image(Root.assets.getTexture("fuel3"));
+		fuel3.x = 100;
+		fuel3.y = 100;
+
+		fuel2 = new Image(Root.assets.getTexture("fuel2"));
+		fuel2.x = 100;
+		fuel2.y = 100;
+		
+		fuel1 = new Image(Root.assets.getTexture("fuel1"));
+		fuel1.x = 100;
+		fuel1.y = 100;
+		
+		fuel0 = new Image(Root.assets.getTexture("fuel0"));
+		fuel0.x = 100;
+		fuel0.y = 100;
+
+		ship = new Image(Root.assets.getTexture("ship"));
+		ship.x = fx + 300;
+		ship.y = fy + 250;
+
+		gx = ship.x;
+		gy = ship.y;
+
+		fuel = 1000;
 
 		rootSprite.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
 		rootSprite.stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
@@ -130,6 +193,40 @@ class Game extends Sprite{
 
 		updateVelocity();
 		updateMap();
+
+		if (fuel > 900 && fuel <= 1000){
+			rootSprite.addChild(fuel10);
+		}
+		if(fuel > 800 && fuel <= 900){
+			rootSprite.addChild(fuel9);
+		}
+		if(fuel > 700 && fuel <= 800){
+			rootSprite.addChild(fuel8);
+		}
+		if(fuel > 600 && fuel <= 700){
+			rootSprite.addChild(fuel7);
+		}
+		if(fuel > 500 && fuel <= 600){
+			rootSprite.addChild(fuel6);
+		}
+		if(fuel > 400 && fuel <= 500){
+			rootSprite.addChild(fuel5);
+		}
+		if(fuel > 300 && fuel <= 400){
+			rootSprite.addChild(fuel4);
+		}
+		if(fuel > 200 && fuel <= 300){
+			rootSprite.addChild(fuel3);
+		}
+		if(fuel > 100 && fuel <= 200){
+			rootSprite.addChild(fuel2);
+		}
+		if(fuel > 0 && fuel <= 100){
+			rootSprite.addChild(fuel1);
+		}
+		if(fuel == 0){
+			rootSprite.addChild(fuel0);
+		}
 
 		ship.x += vx;
 		ship.y += vy;
@@ -224,37 +321,49 @@ class Game extends Sprite{
 
 	private function updateVelocity(){
 		
-		if(keyMap.get( K_UP)){
-			vy -= 0.3;
+		if(fuel != 0){
+		
+			if(keyMap.get( K_UP )){
+				vy -= 0.3;
+				fuel -= 2;
+			}
+
+			if(keyMap.get( K_DOWN )){
+				vy += 0.3;
+				fuel -= 2;
+			}
+
+			if(keyMap.get( K_LEFT )){
+				vx -= 0.3;
+				fuel -= 2;
+			}
+
+			if(keyMap.get( K_RIGHT )){
+				vx += 0.3;
+				fuel -= 2;
+			}
+			if(keyMap.get( D_UP)){
+				vy -= 0.3;
+				fuel -= 2;
+			}
+
+			if(keyMap.get( D_DOWN)){
+				vy += 0.3;
+				fuel -= 2;
+			}
+
+			if(keyMap.get( D_LEFT)){
+				vx -= 0.3;
+				fuel -= 2;
+			}
+
+			if(keyMap.get( D_RIGHT)){
+				vx += 0.3;
+				fuel -= 2;
+			}
 		}
 
-		if(keyMap.get( K_DOWN)){
-			vy += 0.3;
-		}
 
-		if(keyMap.get( K_LEFT)){
-			vx -= 0.3;
-		}
-
-		if(keyMap.get( K_RIGHT)){
-			vx += 0.3;
-		}
-
-		if(keyMap.get( D_UP)){
-			vy -= 0.3;
-		}
-
-		if(keyMap.get( D_DOWN)){
-			vy += 0.3;
-		}
-
-		if(keyMap.get( D_LEFT)){
-			vx -= 0.3;
-		}
-
-		if(keyMap.get( D_RIGHT)){
-			vx += 0.3;
-		}
 
 		if(vx > 0) vx -= .03;
 		if(vx < 0) vx += .03;
@@ -272,7 +381,7 @@ class Game extends Sprite{
 	
 	private function generateAsteroids() {
 		var num;
-		for (num 0...10) {
+		for (num in 0...10) {
 			asteroid[num] = new Asteroid("meteor1");
 			asteroid[num].x = Std.random(20);
 			asteroid[num].y = Std.random(20);
