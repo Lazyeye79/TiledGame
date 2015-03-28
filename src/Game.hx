@@ -3,11 +3,13 @@ import starling.display.Image;
 import starling.events.Event;
 import starling.events.EnterFrameEvent;
 import starling.events.KeyboardEvent;
+import flash.geom.Rectangle;
 
 
 class Game extends Sprite{
 	public var rootSprite:Sprite;
 	private var map:Array<Array<Int>>;
+	private var pickupObject:Pickup;
 
 	// Numerical key codes for WASD
 		public var K_UP : Int	 = 87;
@@ -67,6 +69,11 @@ class Game extends Sprite{
 		keyMap.set(K_DOWN, false); 	// S (down)
 		keyMap.set(K_RIGHT, false); // D (right)
 
+		pickupObject = new Pickup();
+		pickupObject.x = 100;
+		pickupObject.y = 100;
+		world.addChild(pickupObject);
+
 	}
 
 	public function updateMap(){
@@ -74,9 +81,19 @@ class Game extends Sprite{
 		rootSprite.removeChild(world);
 		rootSprite.addChild(world);
 
-		while (world.numChildren > 0) {
-   			world.removeChildAt(0);
-		}	
+		var numChild = world.numChildren;
+
+		for (i in 0...numChild){
+			//trace(world.getChildAt(i).height);
+			if(world.getChildAt(i).height < 17 && (world.getChildAt(i).x < ship.x - 450 || world.getChildAt(i).x < ship.x + 450 || world.getChildAt(i).x < ship.y - 360 || world.getChildAt(i).x < ship.y + 360)){
+				//trace(world.getChildAt(i));
+				world.removeChildAt(i);
+			}
+			numChild = world.numChildren;
+		}
+		//while (world.numChildren > 0) {
+   		//	world.removeChildAt(0);
+		//}	
 		
 
 		for (x in 0...54){
@@ -145,6 +162,10 @@ class Game extends Sprite{
 		{
 			ship.y -= 2;
 			vy = -vy;
+		}
+
+		if(pickupObject.collisionTest(ship) == true){
+			trace("HIT");
 		}
 		
 

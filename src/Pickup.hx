@@ -4,24 +4,26 @@ import starling.display.Image;
 class Pickup extends Image{
 	private var isVisible:Bool = false;
 	private var boundingBox:Rectangle;
-	private var player:Rectangle;
+	private var player:Image;
+	private var playerBounds:Rectangle;
 	public var nameClass:String = "Pickup";
 
-	public function new(player:Rectangle){
+	public function new(){
 		super(Root.assets.getTexture("ship"));
-		this.player = player;
-		boundingBox = this.bounds;
 		isVisible = true;
-		this.x = 500;
-		this.y = 500;
 	}
 
 	public function pickupObject(){
 		isVisible = false;
 	}
 
-	public function collisionTest():Bool{
-		if (player.intersects(boundingBox)){
+	public function collisionTest(player:Image):Bool{
+		this.player = player;
+		boundingBox = this.bounds;
+		playerBounds = player.bounds;
+		trace(player);
+		trace(boundingBox);
+		if (playerBounds.intersects(boundingBox)){
 			return true;
 		}
 		return false;
