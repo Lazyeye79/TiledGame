@@ -17,6 +17,13 @@ class Game extends Sprite{
 		public var K_DOWN : Int	 = 83;
 		public var K_RIGHT : Int = 68;
 
+		public var D_UP : Int = 38;
+		public var D_DOWN : Int = 40;
+		public var D_LEFT : Int = 37;
+		public var D_RIGHT : Int = 39;
+
+
+
 		//Map to keep track of what keys are being pressed
 		private var keyMap : Map<Int, Bool> = new Map<Int, Bool>();
 
@@ -69,9 +76,17 @@ class Game extends Sprite{
 		keyMap.set(K_DOWN, false); 	// S (down)
 		keyMap.set(K_RIGHT, false); // D (right)
 
+		keyMap.set(D_UP, false); 	// arrow (up)
+		keyMap.set(D_LEFT, false); 	// arrow (left)
+		keyMap.set(D_DOWN, false); 	// arrow (down)
+		keyMap.set(D_RIGHT, false); // arrow (right)
+
+
+
+
 		pickupObject = new Pickup();
-		pickupObject.x = 100;
-		pickupObject.y = 100;
+		pickupObject.x = 1;
+		pickupObject.y = 1;
 		world.addChild(pickupObject);
 
 	}
@@ -194,24 +209,40 @@ class Game extends Sprite{
 	}
 
 	private function isBound( keyCode:Int ) : Bool {
-		return (keyCode == K_UP || keyCode == K_LEFT || keyCode == K_DOWN || keyCode == K_RIGHT);
+		return (keyCode == K_UP || keyCode == K_LEFT || keyCode == K_DOWN || keyCode == K_RIGHT || keyCode == D_UP || keyCode == D_LEFT || keyCode == D_DOWN || keyCode == D_RIGHT);
 	}
 
 	private function updateVelocity(){
 		
-		if(keyMap.get( K_UP )){
+		if(keyMap.get( K_UP)){
 			vy -= 0.3;
 		}
 
-		if(keyMap.get( K_DOWN )){
+		if(keyMap.get( K_DOWN)){
 			vy += 0.3;
 		}
 
-		if(keyMap.get( K_LEFT )){
+		if(keyMap.get( K_LEFT)){
 			vx -= 0.3;
 		}
 
-		if(keyMap.get( K_RIGHT )){
+		if(keyMap.get( K_RIGHT)){
+			vx += 0.3;
+		}
+
+		if(keyMap.get( D_UP)){
+			vy -= 0.3;
+		}
+
+		if(keyMap.get( D_DOWN)){
+			vy += 0.3;
+		}
+
+		if(keyMap.get( D_LEFT)){
+			vx -= 0.3;
+		}
+
+		if(keyMap.get( D_RIGHT)){
 			vx += 0.3;
 		}
 
