@@ -10,6 +10,8 @@ class Game extends Sprite{
 	public var rootSprite:Sprite;
 	private var map:Array<Array<Int>>;
 	private var pickupObject:Pickup;
+	
+	private var asteroid:Array<Asteroid>;
 
 	// Numerical key codes for WASD
 		public var K_UP : Int	 = 87;
@@ -49,7 +51,9 @@ class Game extends Sprite{
 		run();
 	}
 
-	public function run(){
+	public function run() {
+		
+		asteroid = new Array<Asteroid>();
 
 		world = new World();
 		mapGenerator = new GenerateMap(world);
@@ -84,10 +88,12 @@ class Game extends Sprite{
 
 
 
-		pickupObject = new Pickup();
+		pickupObject = new Pickup("ship");
 		pickupObject.x = 1;
 		pickupObject.y = 1;
 		world.addChild(pickupObject);
+		
+		generateAsteroids();
 
 	}
 
@@ -183,6 +189,10 @@ class Game extends Sprite{
 			trace("HIT");
 		}
 		
+		if (asteroid[0].collisionTest(ship) == true) {
+			trace("You're hitting an steroid!");
+		}
+		
 
 	}
 
@@ -257,6 +267,19 @@ class Game extends Sprite{
 		
 		if (vy > 8) vy = 8;
 		if (vy < -8) vy = -8;
+	}
+	
+	
+	private function generateAsteroids() {
+		var num;
+		for (num 0...10) {
+			asteroid[num] = new Asteroid("meteor1");
+			asteroid[num].x = Std.random(20);
+			asteroid[num].y = Std.random(20);
+			asteroid[num].x = 15;
+			asteroid[num].y = 15;
+			world.addChild(asteroid[0]);
+		}
 	}
 
 }

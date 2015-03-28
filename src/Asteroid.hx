@@ -1,20 +1,17 @@
 import flash.geom.Rectangle;
 import starling.display.Image;
 
-class Pickup extends Image{
+class Asteroid extends Image{
 	private var isVisible:Bool = false;
 	private var boundingBox:Rectangle;
 	private var player:Image;
 	private var playerBounds:Rectangle;
-	public var nameClass:String = "Pickup";
+	public var nameClass:String = "Asteroid";
+	public var asteroidImage:Image;
 
-	public function new(character:String){
-		super(Root.assets.getTexture(character));
+	public function new(meteor:String){
+		super(Root.assets.getTexture(meteor));
 		isVisible = true;
-	}
-
-	public function pickupObject(){
-		isVisible = false;
 	}
 
 	public function collisionTest(player:Image):Bool{
@@ -28,4 +25,5 @@ class Pickup extends Image{
 		}
 		return false;
 	}
+	
 }
