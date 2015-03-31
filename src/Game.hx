@@ -94,9 +94,10 @@ class Game extends Sprite{
 		gy = ship.y;
 
 		fuel10 = new Image(Root.assets.getTexture("fuel10"));
-		fuel10.x = 100;
-		fuel10.y = 100;
+		fuel10.x = 20;
+		fuel10.y = 20;
 		rootSprite.addChild(fuel10);
+
 
 		ship = new Image(Root.assets.getTexture("ship"));
 		ship.x = fx + 300;
