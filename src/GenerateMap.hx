@@ -7,13 +7,13 @@ class GenerateMap{
 
 	public function new(){
 
-		map = [for(x in 0...100) [for (y in 0...100) 0]];
+		map = [for(x in 0...200) [for (y in 0...200) 0]];
 		
-		tiles = [for(x in 0...100) [for (y in 0...100) new Tile(0,0)]];
+		tiles = [for(x in 0...200) [for (y in 0...200) new Tile(0,0)]];
 
 			
-		for (x in 0...100){
-			for (y in 0 ... 100){
+		for (x in 0...200){
+			for (y in 0 ... 200){
 				if (map[x][y]==0){
 					tiles[x][y] = new Tile(x*16, y*16);
 				}

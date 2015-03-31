@@ -80,8 +80,8 @@ class Game extends Sprite{
 		
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
-		world.x = -32;
-		world.y = -32;
+		world.x = 0;
+		world.y = 0;
 		rootSprite.addChild(world);
 		
 		
@@ -195,7 +195,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
-				//trace("You're hitting an asteroid!", num);
+				trace("You're hitting an asteroid!", num);
 			}
 		}
 		
@@ -230,7 +230,7 @@ class Game extends Sprite{
 
 	private function updateVelocity(){
 		
-		if(fuel != 0){
+		if(fuel > 0){
 		
 			if(keyMap.get( K_UP )){
 				vy -= 0.3;
