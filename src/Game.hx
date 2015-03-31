@@ -195,7 +195,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
-				trace("You're hitting an asteroid!", num);
+				//trace("You're hitting an asteroid!", num);
 			}
 		}
 		
@@ -288,14 +288,15 @@ class Game extends Sprite{
 	}
 	
 	
-	private function generateAsteroids() {
+	public function generateAsteroids() {
 		var num;
 		for (num in 0...numOfAsteroids) {
 			asteroid[num] = new Asteroid("meteor1");
 			asteroid[num].x = Std.random(1600);
 			asteroid[num].y = Std.random(1600);
 
-			world.addChild(asteroid[num]);
+			world.mapContainer.addChild(asteroid[num]);
 		}
+		world.mapContainer.flatten();
 	}
 }
