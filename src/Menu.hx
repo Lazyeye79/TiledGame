@@ -16,12 +16,14 @@ enum GameState
 
 
 class Menu extends Sprite{
+
+	private var playing:Bool = false;
 	public var rootSprite : Sprite;
 
-	public function new(rootSprite:Sprite)
+	public function new()
 	{
 		super();
-		this.rootSprite = rootSprite;
+		//this.rootSprite = rootSprite;
 		
 		setStage(Menu);
 	}
@@ -101,8 +103,14 @@ class Menu extends Sprite{
 	}
 
 	public function start(){
-		var game = new Game(rootSprite);
-		rootSprite.addChild(game);
+		//var game = new Game(rootSprite);
+		//rootSprite.addChild(game);
+		playing = true;
+
+	}
+
+	public function getStart():Bool{
+		return playing;
 	}
 }
 

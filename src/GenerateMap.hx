@@ -5,14 +5,10 @@ class GenerateMap{
 	public var map:Array<Array<Int>>;
 	public var tiles:Array<Array<Tile>>;
 
-	public function new(world:World){
+	public function new(){
 
 		map = [for(x in 0...100) [for (y in 0...100) 0]];
-		map[4][4] = 1;
-		map[5][4] = 4;
-		map[6][4] = 1;
-		map[5][5] = 2;
-
+		
 		tiles = [for(x in 0...100) [for (y in 0...100) new Tile(0,0)]];
 
 			
@@ -40,7 +36,7 @@ class GenerateMap{
 	}
 
 	public function getMap(){
-		return map;
+		return tiles;
 	}
 
 	public function createAsteroid(){

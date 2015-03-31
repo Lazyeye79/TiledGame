@@ -39,7 +39,7 @@ class Root extends Sprite {
 					}
 				});
 				
-				addChild(new Menu(rootSprite));
+				addChild(new Game(rootSprite));
 			}
 		});
 	}
