@@ -1,26 +1,24 @@
-FLEX_SDK = ~/flexsdk
-ADL = $(FLEX_SDK)/bin/adl
-AMXMLC = $(FLEX_SDK)/bin/amxmlc
-SOURCES = src/*.hx assets/loading.png
+FLEX_SDK ?= C:\Flex
 
-all: tiled.swf
+APP=tiled
+APP_XML=$(APP).xml
+ADL=$(FLEX_SDK)/bin/adl
+AMXMLC=$(FLEX_SDK)/bin/amxmlc
+SOURCES=src/Startup.hx
 
-tiled.swf: $(SOURCES)
+all: $(APP).swf
+$(APP).swf: $(SOURCES)
 	haxe \
 	-cp src \
 	-cp vendor \
 	-swf-version 11.8 \
-	-swf-header 800:640:60:ffffff \
+	-swf-header 640:640:60:ffffff \
 	-main Startup \
-	-swf tiled.swf \
+	-swf $(APP).swf \
 	-swf-lib vendor/starling.swc --macro "patchTypes('vendor/starling.patch')"
 
-run:
-	make
-	cygstart tiled.swf
-
 clean:
-	rm -rf game.swf *~ src/*~
-
-test: game.swf
-	$(ADL) -profile tv -screensize 640x360:640x360 game.xml
+	del $(APP).swf
+	
+test: $(APP).swf
+	$(ADL) -profile tv -screensize 640x640:640x640 $(APP_XML)

@@ -24,7 +24,9 @@ class Game extends Sprite{
 	public var fuel0:Image;
 	
 	private var asteroid:Array<Asteroid>;
+	private var fuelcan:Array<FuelCan>;
 	private var numOfAsteroids = 100;
+	private var numOfFuel = 5;
 
 	// Numerical key codes for WASD
 	public var K_UP : Int	 = 87;
@@ -77,6 +79,8 @@ class Game extends Sprite{
 		
 		asteroid = new Array<Asteroid>();
 
+		fuelcan = new Array<FuelCan>();
+
 		
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
@@ -107,7 +111,7 @@ class Game extends Sprite{
 		gx = ship.x;
 		gy = ship.y;
 
-		fuel = 1000;
+		fuel = 500;
 
 
 		rootSprite.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
@@ -126,6 +130,8 @@ class Game extends Sprite{
 		
 		generateAsteroids();
 
+		generateFuel();
+
 	}
 
 	public function onEnterFrame(event:EnterFrameEvent){
@@ -135,7 +141,7 @@ class Game extends Sprite{
  		
  		//computes the fuel bar
  		if(fuel >= 0){
-			fuel10.scaleX = fuel/1000;
+			fuel10.scaleX = fuel/500;
 		}
 		
 
@@ -198,6 +204,20 @@ class Game extends Sprite{
 				trace("You're hitting an asteroid!", num);
 			}
 		}
+
+		var num;
+		for (num in 0...numOfFuel) {
+			if (fuelcan[num].collisionTest(ship) == true) {
+				if (fuel <= 450){
+					fuel += 50;
+				}
+				else {
+					fuel = 500;
+				}
+				world.mapContainer.addChild(fuelcan[num]);
+				//trace("You collect fuel", num);
+			}
+		}
 		
 
 	}
@@ -234,41 +254,41 @@ class Game extends Sprite{
 		
 			if(keyMap.get( K_UP )){
 				vy -= 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 
 			if(keyMap.get( K_DOWN )){
 				vy += 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 
 			if(keyMap.get( K_LEFT )){
 				vx -= 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 
 			if(keyMap.get( K_RIGHT )){
 				vx += 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 			if(keyMap.get( D_UP)){
 				vy -= 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 
 			if(keyMap.get( D_DOWN)){
 				vy += 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 
 			if(keyMap.get( D_LEFT)){
 				vx -= 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 
 			if(keyMap.get( D_RIGHT)){
 				vx += 0.3;
-				fuel -= .2;
+				fuel -= .5;
 			}
 		}
 
@@ -296,6 +316,25 @@ class Game extends Sprite{
 			asteroid[num].y = Std.random(1600);
 
 			world.mapContainer.addChild(asteroid[num]);
+		}
+		world.mapContainer.flatten();
+	}
+
+	public function generateFuel() {
+		var num;
+		for (num in 0...numOfFuel) {
+			fuelcan[num] = new FuelCan("fuelcan");
+			fuelcan[num].x = Std.random(1600);
+			fuelcan[num].y = Std.random(1600);
+			for (Asteroid in asteroid){
+				if (Asteroid.x == fuelcan[num].x){
+					fuelcan[num].x = Std.random(1600);
+				}
+				if (Asteroid.y == fuelcan[num].y){
+					fuelcan[num].y = Std.random(1600);
+				}
+			}
+			world.mapContainer.addChild(fuelcan[num]);
 		}
 		world.mapContainer.flatten();
 	}
