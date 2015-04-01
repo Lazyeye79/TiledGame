@@ -192,20 +192,22 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
-				trace("You're hitting an asteroid!", num);
+				//trace("You're hitting an asteroid!", num);
 			}
 		}
 
 		var num;
 		for (num in 0...numOfFuel) {
 			if (fuelcan[num].collisionTest(ship) == true) {
-				if (fuel <= 450){
-					fuel += 50;
+				if (fuel <= 400){
+					fuel = fuel + 100;
 				}
 				else {
 					fuel = 500;
 				}
 				world.removeChild(fuelcan[num]);
+				fuelcan[num].x = -30;
+				fuelcan[num].y = -30;
 				//trace("You collect fuel", num);
 			}
 		}
