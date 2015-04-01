@@ -27,6 +27,7 @@ class Game extends Sprite{
 	private var fuelcan:Array<FuelCan>;
 	private var numOfAsteroids = 100;
 	private var numOfFuel = 5;
+	private var mapSize = 3000;
 
 	// Numerical key codes for WASD
 	public var K_UP : Int	 = 87;
@@ -309,13 +310,28 @@ class Game extends Sprite{
 	
 	
 	public function generateAsteroids() {
+		numOfAsteroids = 100;
 		var num;
 		for (num in 0...numOfAsteroids) {
-			asteroid[num] = new Asteroid("meteor1");
-			asteroid[num].x = Std.random(1600);
-			asteroid[num].y = Std.random(1600);
-
+			asteroid[num] = new Asteroid("meteor" + (Std.random(3) + 1));
+			asteroid[num].x = Std.random(mapSize);
+			asteroid[num].y = Std.random(mapSize);
+			var check;
+			for (check in 0...num - 1) {
+				while (Math.sqrt((asteroid[num].x - asteroid[check].x) * (asteroid[num].x - asteroid[check].x) + (asteroid[num].y - asteroid[check].y) * (asteroid[num].y - asteroid[check].y)) < 117) {
+					asteroid[num].x = Std.random(mapSize);
+					asteroid[num].y = Std.random(mapSize);
+				}
+			}
 			world.mapContainer.addChild(asteroid[num]);
+		}
+		for (meteor in asteroid) {
+			if (Math.abs(meteor.x - ship.x) < 50) {
+				meteor.x = meteor.x + 50;
+			}
+			if (Math.abs(meteor.y - ship.y) < 110) {
+				meteor.y = meteor.y + 110;
+			}
 		}
 		world.mapContainer.flatten();
 	}
@@ -324,14 +340,14 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfFuel) {
 			fuelcan[num] = new FuelCan("fuelcan");
-			fuelcan[num].x = Std.random(1600);
-			fuelcan[num].y = Std.random(1600);
-			for (Asteroid in asteroid){
-				if (Asteroid.x == fuelcan[num].x){
-					fuelcan[num].x = Std.random(1600);
+			fuelcan[num].x = Std.random(mapSize);
+			fuelcan[num].y = Std.random(mapSize);
+			for (Asteroid in asteroid) {
+				while (Math.abs(Asteroid.x - fuelcan[num].x) < 30) {
+					fuelcan[num].x = Std.random(mapSize);
 				}
-				if (Asteroid.y == fuelcan[num].y){
-					fuelcan[num].y = Std.random(1600);
+				while (Math.abs(Asteroid.y - fuelcan[num].y) < 30) {
+					fuelcan[num].y = Std.random(mapSize);
 				}
 			}
 			world.mapContainer.addChild(fuelcan[num]);
