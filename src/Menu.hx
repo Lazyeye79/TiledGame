@@ -6,6 +6,7 @@ import starling.events.*;
 import starling.text.TextField;
 import starling.animation.Transitions;
 import starling.animation.Tween;
+import starling.display.Image;
 
 enum GameState
 {
@@ -19,6 +20,8 @@ class Menu extends Sprite{
 
 	private var playing:Bool = false;
 	public var rootSprite : Sprite;
+	public var MM : Image = new Image(Root.assets.getTexture("mainM"));
+
 
 	public function new()
 	{
@@ -35,7 +38,11 @@ class Menu extends Sprite{
 	{
 		removeChildren(0);
 		removeChildren(1);
-
+		addChild(MM);
+		//MM.x = Starling.current.stage.stageWidth;
+		//MM.y = Starling.current.stage.stageHeight;
+		MM.x = 0;
+		MM.y = 0;
 		switch(state)
 		{
 			case Menu:
