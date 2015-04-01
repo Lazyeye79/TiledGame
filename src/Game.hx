@@ -12,16 +12,6 @@ class Game extends Sprite{
 	private var pickupObject:Pickup;
 	public var fuel:Float;
 	public var fuel10:Image;
-	public var fuel9:Image;
-	public var fuel8:Image;
-	public var fuel7:Image;
-	public var fuel6:Image;
-	public var fuel5:Image;
-	public var fuel4:Image;
-	public var fuel3:Image;
-	public var fuel2:Image;
-	public var fuel1:Image;
-	public var fuel0:Image;
 	
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
