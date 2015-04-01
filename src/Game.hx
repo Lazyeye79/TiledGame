@@ -205,7 +205,7 @@ class Game extends Sprite{
 				else {
 					fuel = 500;
 				}
-				world.mapContainer.addChild(fuelcan[num]);
+				world.removeChild(fuelcan[num]);
 				//trace("You collect fuel", num);
 			}
 		}
@@ -340,8 +340,7 @@ class Game extends Sprite{
 					fuelcan[num].y = Std.random(mapSize);
 				}
 			}
-			world.mapContainer.addChild(fuelcan[num]);
+			world.addChild(fuelcan[num]);
 		}
-		world.mapContainer.flatten();
 	}
 }
