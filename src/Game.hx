@@ -232,7 +232,19 @@ class Game extends Sprite{
 				//trace("You collect fuel", num);
 			}
 		}
-		
+
+		if (fuel <= 0){
+			rootSprite.removeChildren();
+			var loss = new Image(Root.assets.getTexture("lose2"));
+			rootSprite.addChild(loss);
+			//Add press space to return to main menu
+		}
+		if(health <= 0){
+			rootSprite.removeChildren();
+			var loss = new Image(Root.assets.getTexture("lose1"));
+			rootSprite.addChild(loss);
+			//Add press space to return to main menu
+		}
 
 	}
 
