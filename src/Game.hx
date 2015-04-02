@@ -15,11 +15,14 @@ class Game extends Sprite{
 	public var wrench1:Image;
 	public var wrench2:Image;
 	public var wrench3:Image;
+	public var character1:Image;
 	
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
+	private var character:Array<Character>;
 	private var numOfAsteroids = 100;
 	private var numOfFuel = 5;
+	private var numOfCharacters = 6;
 	private var mapSize = 3000;
 	private var health = 3;
 
@@ -345,6 +348,26 @@ class Game extends Sprite{
 			if (Math.abs(meteor.y - ship.y) < 110) {
 				meteor.y = meteor.y + 110;
 			}
+		}
+		world.mapContainer.flatten();
+	}
+
+	public function generateCharacters() {
+		var num;
+		for (num in 0...numOfCharacters) {
+			character[num] = new Character("character1");
+			character[num].x = 50;
+			character[num].y = 50;
+			//making sure it doesn't spawn on top of an asteroid
+			for (Asteroid in asteroid) {
+				while (Math.abs(Asteroid.x - character[num].x) < 30) {
+					character[num].x = Std.random(mapSize);
+				}
+				while (Math.abs(Asteroid.y - character[num].y) < 30) {
+					character[num].y = Std.random(mapSize);
+				}
+			}
+			world.addChild(character1);
 		}
 		world.mapContainer.flatten();
 	}
