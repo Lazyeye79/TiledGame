@@ -43,6 +43,15 @@ class Root extends Sprite {
 
 		assets.enqueue("assets/music.mp3");
 
+		assets.enqueue("assets/character1.png");
+		assets.enqueue("assets/character2.png");
+		assets.enqueue("assets/character3.png");
+		assets.enqueue("assets/character4.png");
+		assets.enqueue("assets/character5.png");
+		assets.enqueue("assets/character6.png");
+		assets.enqueue("assets/character7.png");
+
+
 		
 		assets.loadQueue(function onProgress(ratio:Float) {
 			if (ratio == 1) {
