@@ -12,12 +12,16 @@ class Game extends Sprite{
 	private var pickupObject:Pickup;
 	public var fuel:Float;
 	public var fuel10:Image;
+	public var wrench1:Image;
+	public var wrench2:Image;
+	public var wrench3:Image;
 	
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
 	private var numOfAsteroids = 100;
 	private var numOfFuel = 5;
 	private var mapSize = 3000;
+	private var health = 3;
 
 	// Numerical key codes for WASD
 	public var K_UP : Int	 = 87;
@@ -72,21 +76,26 @@ class Game extends Sprite{
 
 		fuelcan = new Array<FuelCan>();
 
-		
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
 		world.x = 0;
 		world.y = 0;
 		rootSprite.addChild(world);
 		
-		
-		
-		ship = new Image(Root.assets.getTexture("ship"));
-		ship.x = fx + 300;
-		ship.y = fy + 250;
+		wrench1 = new Image(Root.assets.getTexture("wrench"));
+		wrench1.x = 520;
+		wrench1.y = 20;
+		rootSprite.addChild(wrench1);
 
-		gx = ship.x;
-		gy = ship.y;
+		wrench2 = new Image(Root.assets.getTexture("wrench"));
+		wrench2.x = 552;
+		wrench2.y = 20;
+		rootSprite.addChild(wrench2);
+
+		wrench3 = new Image(Root.assets.getTexture("wrench"));
+		wrench3.x = 584;
+		wrench3.y = 20;
+		rootSprite.addChild(wrench3);
 
 		fuel10 = new Image(Root.assets.getTexture("fuel10"));
 		fuel10.x = 20;
@@ -192,7 +201,19 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
-				//trace("You're hitting an asteroid!", num);
+				if(health == 3){
+					rootSprite.removeChild(wrench1);
+				}
+				if(health == 2){
+					rootSprite.removeChild(wrench2);
+				}
+				if(health == 1){
+					rootSprite.removeChild(wrench3);
+				}
+				world.removeChild(asteroid[num]);
+				asteroid[num].x = -30;
+				asteroid[num].y = -30;
+				health -= 1;
 			}
 		}
 
@@ -315,7 +336,7 @@ class Game extends Sprite{
 					asteroid[num].y = Std.random(mapSize);
 				}
 			}
-			world.mapContainer.addChild(asteroid[num]);
+			world.addChild(asteroid[num]);
 		}
 		for (meteor in asteroid) {
 			if (Math.abs(meteor.x - ship.x) < 50) {

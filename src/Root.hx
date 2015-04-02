@@ -32,6 +32,7 @@ class Root extends Sprite {
 		assets.enqueue("assets/meteorSide.png");
 		assets.enqueue("assets/meteorGold.png");
 		assets.enqueue("assets/fuel10.png");
+		assets.enqueue("assets/wrench.png");
 		
 		assets.enqueue("assets/Button.png");
 		assets.enqueue("assets/meteor1.png");
