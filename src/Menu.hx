@@ -26,7 +26,6 @@ class Menu extends Sprite{
 	public var MM : Image = new Image(Root.assets.getTexture("mainM"));
 	public var OoF : Image = new Image(Root.assets.getTexture("lose2"));
 	public var GO : Image = new Image(Root.assets.getTexture("lose1"));
-	public var GO : Image = new Image(Root.assets.getTexture("lose1"));
 	public var GW : Image = new Image(Root.assets.getTexture("win1"));
 
 
@@ -127,8 +126,8 @@ class Menu extends Sprite{
 				OoF.y = 0;
 				
 				var back = new MenuButton("Menu");
-				back.fontSize = 20;
-				back.y = 200;
+				back.fontSize = 30;
+				back.x = back.x + 200;
 				back.addEventListener(Event.TRIGGERED,
 				function() {
 					rootSprite.removeChildren();
@@ -143,8 +142,8 @@ class Menu extends Sprite{
 				GO.y = 0;
 				
 				var back = new MenuButton("Menu");
-				back.fontSize = 20;
-				back.y = 200;
+				back.fontSize = 30;
+				back.x = back.x + 200;
 				back.addEventListener(Event.TRIGGERED,
 				function(){
 					rootSprite.removeChildren();
@@ -154,9 +153,13 @@ class Menu extends Sprite{
 				
 			case GameWin:
 				
+				addChild(GW);
+				GW.x = 0;
+				GW.y = 0;
+				
 				var back = new MenuButton("Menu");
-				back.fontSize = 20;
-				back.y = 300;
+				back.fontSize = 30;
+				back.x = back.x + 200;
 				back.addEventListener(Event.TRIGGERED,
 				function(){
 					rootSprite.removeChildren();
