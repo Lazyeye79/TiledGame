@@ -13,6 +13,9 @@ enum GameState
 	Menu;
 	Instructions;
 	Credits;
+	OutOfFuel;
+	GameOver;
+	GameWin;
 }
 
 
@@ -21,14 +24,18 @@ class Menu extends Sprite{
 	private var playing:Bool = false;
 	public var rootSprite : Sprite;
 	public var MM : Image = new Image(Root.assets.getTexture("mainM"));
+	public var OoF : Image = new Image(Root.assets.getTexture("lose2"));
+	public var GO : Image = new Image(Root.assets.getTexture("lose1"));
+	public var GO : Image = new Image(Root.assets.getTexture("lose1"));
+	public var GW : Image = new Image(Root.assets.getTexture("win1"));
 
 
-	public function new()
+	public function new(menu : GameState, rootSprite : Sprite)
 	{
 		super();
-		//this.rootSprite = rootSprite;
+		this.rootSprite = rootSprite;
 		
-		setStage(Menu);
+		setStage(menu);
 	}
 	
 	
@@ -112,6 +119,51 @@ class Menu extends Sprite{
 				back.addEventListener(Event.TRIGGERED,
 				function(){ setStage(Menu);});
 				addChild(back);
+				
+			case OutOfFuel:
+				
+				addChild(OoF);
+				OoF.x = 0;
+				OoF.y = 0;
+				
+				var back = new MenuButton("Menu");
+				back.fontSize = 20;
+				back.y = 200;
+				back.addEventListener(Event.TRIGGERED,
+				function() {
+					rootSprite.removeChildren();
+					rootSprite.addChild(new Game(rootSprite));
+				});
+				addChild(back);
+				
+			case GameOver:
+				
+				addChild(GO);
+				GO.x = 0;
+				GO.y = 0;
+				
+				var back = new MenuButton("Menu");
+				back.fontSize = 20;
+				back.y = 200;
+				back.addEventListener(Event.TRIGGERED,
+				function(){
+					rootSprite.removeChildren();
+					rootSprite.addChild(new Game(rootSprite));
+				});
+				addChild(back);
+				
+			case GameWin:
+				
+				var back = new MenuButton("Menu");
+				back.fontSize = 20;
+				back.y = 300;
+				back.addEventListener(Event.TRIGGERED,
+				function(){
+					rootSprite.removeChildren();
+					rootSprite.addChild(new Game(rootSprite));
+				});
+				addChild(back);
+				
 		}
 	}
 

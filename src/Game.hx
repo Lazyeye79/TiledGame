@@ -33,6 +33,8 @@ class Game extends Sprite{
 	public var D_DOWN : Int = 40;
 	public var D_LEFT : Int = 37;
 	public var D_RIGHT : Int = 39;
+	
+	private var flag = true;
 
 
 
@@ -59,7 +61,7 @@ class Game extends Sprite{
 
 		super();
 		this.rootSprite = rootSprite;
-		var menu = new Menu();
+		var menu = new Menu(Menu, rootSprite);
 		rootSprite.addChild(menu);
 		menu.addEventListener(EnterFrameEvent.ENTER_FRAME, 
 			function(){
@@ -134,7 +136,9 @@ class Game extends Sprite{
 
 	}
 
-	public function onEnterFrame(event:EnterFrameEvent){
+	public function onEnterFrame(event:EnterFrameEvent) {
+		
+
 
 		updateVelocity();
 		//updateMap();
@@ -232,19 +236,11 @@ class Game extends Sprite{
 				//trace("You collect fuel", num);
 			}
 		}
-
-		if (fuel <= 0){
-			rootSprite.removeChildren();
-			var loss = new Image(Root.assets.getTexture("lose2"));
-			rootSprite.addChild(loss);
-			//Add press space to return to main menu
-		}
-		if(health <= 0){
-			rootSprite.removeChildren();
-			var loss = new Image(Root.assets.getTexture("lose1"));
-			rootSprite.addChild(loss);
-			//Add press space to return to main menu
-		}
+		
+		if (health <= 0)
+			gameOver();
+		if (fuel <= 0)
+			gameOverOoF();
 
 	}
 
@@ -376,6 +372,26 @@ class Game extends Sprite{
 				}
 			}
 			world.addChild(fuelcan[num]);
+		}
+	}
+	
+	
+	
+	private function gameOverOoF() {
+		if (flag) {
+			flag = false;
+			rootSprite.removeChildren();
+			var menu = new Menu(OutOfFuel, rootSprite);
+			rootSprite.addChild(menu);
+		}
+	}
+	
+	private function gameOver() {
+		if (flag) {
+			flag = false;
+			rootSprite.removeChildren();
+			var menu = new Menu(GameOver, rootSprite);
+			rootSprite.addChild(menu);
 		}
 	}
 }
