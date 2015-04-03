@@ -19,22 +19,18 @@ class MapContainer extends Sprite{
 		this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
 	}
 
-	public function updateMap(){
+	public function updateMap(shipX:Float, shipY:Float){
 		var size = this.numChildren;
+		
 		for(i in 0...size){
 			if(this.getChildAt(i).height == 16){
-				if(this.getChildAt(i).x > 790){
-					unflatten();
-					this.removeChildAt(i);
-					flatten();
-					size = this.numChildren;
-				}
+				if(this.getChildAt(i))
 			}
 		}
 	}
 
 	public function onEnterFrame(event:EnterFrameEvent){
-		updateMap();
-		
 	}
+
+
 }

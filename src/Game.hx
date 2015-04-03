@@ -137,6 +137,7 @@ class Game extends Sprite{
 	public function onEnterFrame(event:EnterFrameEvent){
 
 		updateVelocity();
+		world.setCoords(ship.x, ship.y);
 		//updateMap();
  		
  		//computes the fuel bar
@@ -201,6 +202,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
+				Root.assets.playSound("bash");
 				if(health == 3){
 					rootSprite.removeChild(wrench1);
 				}
@@ -234,13 +236,13 @@ class Game extends Sprite{
 		}
 
 		if (fuel <= 0){
-			rootSprite.removeChildren();
+			rootSprite.removeChildren(0, rootSprite.numChildren);
 			var loss = new Image(Root.assets.getTexture("lose2"));
 			rootSprite.addChild(loss);
 			//Add press space to return to main menu
 		}
 		if(health <= 0){
-			rootSprite.removeChildren();
+			rootSprite.removeChildren(0, rootSprite.numChildren);
 			var loss = new Image(Root.assets.getTexture("lose1"));
 			rootSprite.addChild(loss);
 			//Add press space to return to main menu
@@ -358,7 +360,6 @@ class Game extends Sprite{
 				meteor.y = meteor.y + 110;
 			}
 		}
-		world.mapContainer.flatten();
 	}
 
 	public function generateFuel() {
