@@ -64,10 +64,10 @@ class Root extends Sprite {
 			if (ratio == 1) {
 
 				//Start the game music
-				musicChannel = assets.playSound("music");
-				musicChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, soundComplete);
-				transform = new SoundTransform(0.3, 0);
-				musicChannel.soundTransform = transform;
+				musicChannel = assets.playSound("music",0,100);
+				// musicChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, soundComplete);
+				// transform = new SoundTransform(0.3, 0);
+				// musicChannel.soundTransform = transform;
 
 				// fade the loading screen, start game
 				Starling.juggler.tween(startup.loadingBitmap, 1.0, {
