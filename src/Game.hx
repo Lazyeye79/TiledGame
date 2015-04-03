@@ -25,7 +25,7 @@ class Game extends Sprite{
 	private var numOfCharacters:Int = 7;
 	private var numOfAsteroids = 25;
 	private var numOfFuel = 5;
-	private var mapSize = 1500;
+	private var mapSize = 1300;
 	private var health = 3;
 
 	// Numerical key codes for WASD
@@ -234,6 +234,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfFuel) {
 			if (fuelcan[num].collisionTest(ship) == true) {
+				Root.assets.playSound("ding");
 				if (fuel <= 400){
 					fuel = fuel + 100;
 				}
@@ -398,13 +399,9 @@ class Game extends Sprite{
 	public function generateCharacters() {
 		var num;
 		for (num in 0...numOfCharacters) {
-			//trace("character"+(num+1));
 			characters[num] = new Character("character"+(num+1));
-			//trace("1");
 			characters[num].x = Std.random(mapSize);
-			//trace("2");
 			characters[num].y = Std.random(mapSize);
-			//trace("3");
 			for (Asteroid in asteroid) {
 			 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
 			 		characters[num].x = Std.random(mapSize);
@@ -434,7 +431,6 @@ class Game extends Sprite{
 			flag = false;
 			rootSprite.dispose();
 			rootSprite.removeChildren();
-			trace(rootSprite.numChildren);
 			var menu = new Menu(GameOver, rootSprite);
 			rootSprite.addChild(menu);
 		}
