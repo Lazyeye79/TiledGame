@@ -22,16 +22,24 @@ class Root extends Sprite {
 
 	public function start(startup:Startup) {
 		assets = new AssetManager();
+		//spritesheet load
 		assets.enqueue("assets/spritesheet.png");
-		assets.enqueue("assets/spritesheet.xml");		
-		assets.enqueue("assets/Button.png");		
+		assets.enqueue("assets/spritesheet.xml");
 
+		//load key images
+		assets.enqueue("assets/star1a.png");
+		assets.enqueue("assets/star2a.png");
+		assets.enqueue("assets/star3a.png");
+		assets.enqueue("assets/starB.png");
+		assets.enqueue("assets/Button.png");
+
+		//load sounds
 		assets.enqueue("assets/music.mp3");
 		assets.enqueue("assets/bash.mp3");
 		assets.enqueue("assets/ding.mp3");
 
+		//load font xml
 		assets.enqueue("assets/font.fnt");
-		assets.enqueue("assets/font.png");
 
 		
 		assets.loadQueue(function onProgress(ratio:Float) {
