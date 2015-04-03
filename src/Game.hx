@@ -170,7 +170,7 @@ class Game extends Sprite{
 		gy += vy;
 
 
-		if(ship.x > 500 && gx < (mapGenerator.map.length * 16) - 356 ){
+		if(ship.x > 450 && gx < (mapGenerator.map.length * 16) - 356 ){
 
 		 	world.x -= vx;
 		 	//ship.x -= vx;
@@ -178,7 +178,7 @@ class Game extends Sprite{
 		 	fx += vx;
 		}
 
-		if(ship.y > 400 && gy < (mapGenerator.map.length * 16) - 296 )
+		if(ship.y > 380 && gy < (mapGenerator.map.length * 16) - 296 )
 		{
 		 	world.y -= vy;
 		 	//ship.y -= vy;
