@@ -23,9 +23,9 @@ class Game extends Sprite{
 	private var fuelcan:Array<FuelCan>;
 	private var characters:Array<Character>;
 	private var numOfCharacters:Int = 7;
-	private var numOfAsteroids = 100;
+	private var numOfAsteroids = 25;
 	private var numOfFuel = 5;
-	private var mapSize = 3000;
+	private var mapSize = 1500;
 	private var health = 3;
 
 	// Numerical key codes for WASD
@@ -352,7 +352,7 @@ class Game extends Sprite{
 	
 	
 	public function generateAsteroids() {
-		numOfAsteroids = 100;
+		//numOfAsteroids = 100;
 		var num;
 		for (num in 0...numOfAsteroids) {
 			asteroid[num] = new Asteroid("meteor" + (Std.random(3) + 1));
@@ -422,6 +422,7 @@ class Game extends Sprite{
 	private function gameOverOoF() {
 		if (flag) {
 			flag = false;
+			rootSprite.dispose();
 			rootSprite.removeChildren();
 			var menu = new Menu(OutOfFuel, rootSprite);
 			rootSprite.addChild(menu);
@@ -431,7 +432,9 @@ class Game extends Sprite{
 	private function gameOver() {
 		if (flag) {
 			flag = false;
+			rootSprite.dispose();
 			rootSprite.removeChildren();
+			trace(rootSprite.numChildren);
 			var menu = new Menu(GameOver, rootSprite);
 			rootSprite.addChild(menu);
 		}
@@ -440,6 +443,7 @@ class Game extends Sprite{
 	private function gameWin() {
 		if (flag) {
 			flag = false;
+			rootSprite.dispose();
 			rootSprite.removeChildren();
 			var menu = new Menu(GameWin, rootSprite);
 			rootSprite.addChild(menu);

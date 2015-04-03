@@ -11,16 +11,25 @@ class MapContainer extends Sprite{
 		super();
 		this.tiles = tiles;
 		this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
-		for (x in 0...52){
-			for (y in 0 ... 42){
+		for (x in 0...100){
+			for (y in 0 ... 100){
 				this.addChild(tiles[x][y]);
 			}
 		}
+		this.flatten();
 		this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
 	}
 
 	public function updateMap(shipX:Float, shipY:Float){
 		var size = this.numChildren;
+		if (shipX < -100 && shipY < -100){
+			// trace("running");
+			// for (x in 50...100){
+			// 	for (y in 0 ... 100){
+			// 		this.addChild(tiles[x][y]);
+			// 	}
+			// }
+		}
 		
 		// for(i in 0...size){
 		// 	if(this.getChildAt(i).height == 16){
@@ -31,6 +40,4 @@ class MapContainer extends Sprite{
 
 	public function onEnterFrame(event:EnterFrameEvent){
 	}
-
-
 }
