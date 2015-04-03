@@ -264,8 +264,8 @@ class Game extends Sprite{
 				addEventListener(Event.ENTER_FRAME, displayport);
 				tb = new Image(Root.assets.getTexture(""+(num+1)));
 				rootSprite.addChild(tb);
-				tb.x = 200;
-				tb.y = 500;
+				tb.x = 25;
+				tb.y = 450;
 				boxopen = 1;
 				counter.updateText();
 				world.removeChild(characters[num]);
