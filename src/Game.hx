@@ -32,6 +32,9 @@ class Game extends Sprite{
 	private var portnum:Int;
 	private var counts:Int = 0;
 	private var boxopen:Int = 0;
+		private var lx:Float = 0;
+		private var ly:Float = 0;
+
 
 	// Numerical key codes for WASD
 	public var K_UP : Int	 = 87;
@@ -46,7 +49,8 @@ class Game extends Sprite{
 	
 	private var flag = true;
 
-
+	public var xstuff :Array<Float> = new Array<Float>();
+    public var ystuff :Array<Float> = new Array<Float>();
 
 	//Map to keep track of what keys are being pressed
 	private var keyMap : Map<Int, Bool> = new Map<Int, Bool>();
@@ -378,8 +382,12 @@ class Game extends Sprite{
 			var check;
 			for (check in 0...num - 1) {
 				while (Math.sqrt((asteroid[num].x - asteroid[check].x) * (asteroid[num].x - asteroid[check].x) + (asteroid[num].y - asteroid[check].y) * (asteroid[num].y - asteroid[check].y)) < 117) {
+					
+			//while( checkSelf(asteroid[num].x, asteroid[num].y) == false)
+			//{
 					asteroid[num].x = Std.random(mapSize);
 					asteroid[num].y = Std.random(mapSize);
+			//}
 				}
 			}
 			world.addChild(asteroid[num]);
@@ -400,14 +408,19 @@ class Game extends Sprite{
 			fuelcan[num] = new FuelCan("fuelcan");
 			fuelcan[num].x = Std.random(mapSize);
 			fuelcan[num].y = Std.random(mapSize);
+
 			for (Asteroid in asteroid) {
-				while (Math.abs(Asteroid.x - fuelcan[num].x) < 30) {
+				while ((Math.abs(Asteroid.x - fuelcan[num].x) < 30)&& ( checkSelf(fuelcan[num].x, fuelcan[num].y) == false)) {
 					fuelcan[num].x = Std.random(mapSize);
 				}
-				while (Math.abs(Asteroid.y - fuelcan[num].y) < 30) {
+				while ((Math.abs(Asteroid.y - fuelcan[num].y) < 30)&& ( checkSelf(fuelcan[num].x, fuelcan[num].y) == false))   {
 					fuelcan[num].y = Std.random(mapSize);
 				}
 			}
+
+			xstuff.push(fuelcan[num].x);
+			//trace(characters[num].x);
+			ystuff.push(fuelcan[num].y);
 			world.addChild(fuelcan[num]);
 		}
 	}
@@ -416,8 +429,13 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfCharacters) {
 			characters[num] = new Character("character"+(num+1));
-			characters[num].x = Std.random(mapSize);
-			characters[num].y = Std.random(mapSize);
+			while( checkSelf(characters[num].x, characters[num].y) == false)
+			{
+			characters[num].x = Std.random(mapSize)+200;
+			characters[num].y = Std.random(mapSize)+200;
+			}
+			xstuff.push(characters[num].x);
+			ystuff.push(characters[num].y);
 			for (Asteroid in asteroid) {
 			 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
 			 		characters[num].x = Std.random(mapSize);
@@ -477,6 +495,23 @@ class Game extends Sprite{
 			boxopen == 0;
 		}
 		}
+	}
+
+
+
+	public function checkSelf(x:Float, y:Float) : Bool
+	{
+		var c:Int;
+		for(c in 0... xstuff.length){
+		
+		if((x > xstuff[c]-100 && x < xstuff[c]+100) && (y > ystuff[c]-100 && x < ystuff[c]+100) ) return false;
+		//trace("false'");
+
+
+		}
+		//trace("true");
+		return true;
+
 	}
 
 }
