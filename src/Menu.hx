@@ -91,7 +91,7 @@ class Menu extends Sprite{
 				title.y = 300;
 				addChild(title);
 
-				var instr = new MenuText(350, 200, "Move the 'Ship' with WASD or Arrow Keys. Collect the missing space passengers while avoiding the asteroids scattered about. But don't forget to watch your fuel.");
+				var instr = new MenuText(350, 200, "Emergency Broadcast: The cruise ship Icarus has been struck by an asteroid and it's up to you to save the passengers! Move the 'Ship' with WASD or Arrow Keys. Collect the missing space passengers while avoiding the asteroids scattered about. But don't forget to watch your fuel.");
 				instr.fontSize = 18;
 				instr.x = Starling.current.stage.stageWidth/2 - instr.width/2;
 				instr.y = title.y + title.height/2;
