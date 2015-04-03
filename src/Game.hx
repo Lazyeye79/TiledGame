@@ -258,6 +258,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfCharacters) {
 			if (characters[num].collisionTest(ship) == true) {
+				if(boxopen == 1) rootSprite.removeChild(tb);
 				trace(num);
 				portnum = num;
 				var ef:EnterFrameEvent = new EnterFrameEvent("clock",1);
