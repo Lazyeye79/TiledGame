@@ -18,6 +18,8 @@ class Game extends Sprite{
 	
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
+	private var characters:Array<Character>;
+	private var numOfCharacters:Int = 7;
 	private var numOfAsteroids = 100;
 	private var numOfFuel = 5;
 	private var mapSize = 3000;
@@ -78,6 +80,8 @@ class Game extends Sprite{
 
 		fuelcan = new Array<FuelCan>();
 
+		characters = new Array<Character>();
+
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
 		world.x = 0;
@@ -133,6 +137,8 @@ class Game extends Sprite{
 		generateAsteroids();
 
 		generateFuel();
+
+		generateCharacters();
 
 	}
 
@@ -372,6 +378,28 @@ class Game extends Sprite{
 				}
 			}
 			world.addChild(fuelcan[num]);
+		}
+	}
+
+	public function generateCharacters() {
+		var num;
+		for (num in 0...numOfCharacters) {
+			trace("character"+(num+1));
+			characters[num] = new Character("character"+(num+1));
+			trace("1");
+			characters[num].x = Std.random(mapSize);
+			trace("2");
+			characters[num].y = Std.random(mapSize);
+			trace("3");
+			// for (Asteroid in asteroid) {
+			// 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
+			// 		characters[num].x = Std.random(mapSize);
+			// 	}
+			// 	while (Math.abs(Asteroid.y - characters[num].y) < 30) {
+			// 		characters[num].y = Std.random(mapSize);
+			// 	}
+			// }
+			world.addChild(characters[num]);
 		}
 	}
 	
