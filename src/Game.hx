@@ -27,7 +27,7 @@ class Game extends Sprite{
 	private var numOfCharacters:Int = 7;
 	private var numOfAsteroids = 25;
 	private var numOfFuel = 5;
-	private var mapSize = 1300;
+	private var mapSize = 1270;
 	private var health = 3;
 	private var portnum:Int;
 	private var counts:Int = 0;
@@ -438,9 +438,9 @@ class Game extends Sprite{
 			ystuff.push(characters[num].y);
 			for (Asteroid in asteroid) {
 			 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
-			 		characters[num].x = Std.random(mapSize);
+			 		characters[num].x = Std.random(mapSize) + 10;
 			 	}
-			 	while (Math.abs(Asteroid.y - characters[num].y) < 30) {
+			 	while (Math.abs(Asteroid.y - characters[num].y + 10) < 30) {
 			 		characters[num].y = Std.random(mapSize);
 			 	}
 			 }
