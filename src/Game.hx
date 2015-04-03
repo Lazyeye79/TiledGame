@@ -4,6 +4,7 @@ import starling.events.Event;
 import starling.events.EnterFrameEvent;
 import starling.events.KeyboardEvent;
 import flash.geom.Rectangle;
+import starling.text.TextField;
 
 
 class Game extends Sprite{
@@ -15,6 +16,8 @@ class Game extends Sprite{
 	public var wrench1:Image;
 	public var wrench2:Image;
 	public var wrench3:Image;
+
+	public var collected:Int;
 	
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
@@ -107,7 +110,6 @@ class Game extends Sprite{
 		fuel10.x = 20;
 		fuel10.y = 20;
 		rootSprite.addChild(fuel10);
-
 
 		ship = new Image(Root.assets.getTexture("ship"));
 		ship.x = fx + 300;
@@ -242,15 +244,28 @@ class Game extends Sprite{
 				//trace("You collect fuel", num);
 			}
 		}
+
+		var num;
+		for (num in 0...numOfCharacters) {
+			if (characters[num].collisionTest(ship) == true) {
+				world.removeChild(characters[num]);
+				characters[num].x = -30;
+				characters[num].y = -30;
+				collected += 1;
+				trace("Collected " + collected + "characters");
+			}
+		}
 		
 		if (health <= 0)
 			gameOver();
 		if (fuel <= 0)
 			gameOverOoF();
+		if (collected == 7)
+			gameWin();
 
 	}
 
-	public function keyDown( event:KeyboardEvent ){
+	public function keyDown( event:KeyboardEvent ) {
 
 		var keyCode:Int = event.keyCode;
 		if(!isBound(keyCode))
@@ -260,7 +275,6 @@ class Game extends Sprite{
 			return;
 			
 		keyMap.set(keyCode, true);
-
 	}
 
 	public function keyUp( event:KeyboardEvent ){
@@ -384,21 +398,21 @@ class Game extends Sprite{
 	public function generateCharacters() {
 		var num;
 		for (num in 0...numOfCharacters) {
-			trace("character"+(num+1));
+			//trace("character"+(num+1));
 			characters[num] = new Character("character"+(num+1));
-			trace("1");
+			//trace("1");
 			characters[num].x = Std.random(mapSize);
-			trace("2");
+			//trace("2");
 			characters[num].y = Std.random(mapSize);
-			trace("3");
-			// for (Asteroid in asteroid) {
-			// 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
-			// 		characters[num].x = Std.random(mapSize);
-			// 	}
-			// 	while (Math.abs(Asteroid.y - characters[num].y) < 30) {
-			// 		characters[num].y = Std.random(mapSize);
-			// 	}
-			// }
+			//trace("3");
+			for (Asteroid in asteroid) {
+			 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
+			 		characters[num].x = Std.random(mapSize);
+			 	}
+			 	while (Math.abs(Asteroid.y - characters[num].y) < 30) {
+			 		characters[num].y = Std.random(mapSize);
+			 	}
+			 }
 			world.addChild(characters[num]);
 		}
 	}
@@ -419,6 +433,15 @@ class Game extends Sprite{
 			flag = false;
 			rootSprite.removeChildren();
 			var menu = new Menu(GameOver, rootSprite);
+			rootSprite.addChild(menu);
+		}
+	}
+
+	private function gameWin() {
+		if (flag) {
+			flag = false;
+			rootSprite.removeChildren();
+			var menu = new Menu(GameWin, rootSprite);
 			rootSprite.addChild(menu);
 		}
 	}
