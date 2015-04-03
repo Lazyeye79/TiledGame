@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with TexturePacker http://www.codeandweb.com/texturepacker-->
+<!-- $TexturePacker:SmartUpdate:3e04fe699d5cfac1f43aaf74b69c8170:83ac5fc47a60055aad7f1acfc82738ef:ef7663426bf705b25566a93aef3a1571$ -->
+<TextureAtlas imagePath="spritesheet.png">
+    <SubTexture name="1" x="2" y="1286" width="579" height="153" frameX="0" frameY="-27" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="2" x="644" y="1002" width="579" height="170" frameX="0" frameY="-10" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="3" x="644" y="826" width="579" height="174" frameX="0" frameY="-6" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="4" x="1225" y="1154" width="579" height="165" frameX="0" frameY="-15" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="5" x="644" y="1174" width="579" height="165" frameX="0" frameY="-15" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="6" x="644" y="644" width="579" height="180" frameX="0" frameY="0" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="7" x="1225" y="1321" width="579" height="96" frameX="0" frameY="-84" frameWidth="585" frameHeight="180"/>
+    <SubTexture name="Button" x="628" y="1286" width="1" height="1" frameX="0" frameY="0" frameWidth="203" frameHeight="103"/>
+    <SubTexture name="MeteorC" x="1763" y="671" width="16" height="16"/>
+    <SubTexture name="character1" x="1790" y="644" width="21" height="72"/>
+    <SubTexture name="character2" x="1553" y="726" width="23" height="75"/>
+    <SubTexture name="character3" x="1813" y="644" width="19" height="76"/>
+    <SubTexture name="character4" x="1834" y="644" width="19" height="76"/>
+    <SubTexture name="character5" x="1855" y="644" width="19" height="76"/>
+    <SubTexture name="character6" x="1553" y="644" width="41" height="80"/>
+    <SubTexture name="character7" x="1696" y="644" width="36" height="40"/>
+    <SubTexture name="font" x="1225" y="644" width="326" height="508" frameX="-2" frameY="-2" frameWidth="330" frameHeight="512"/>
+    <SubTexture name="fuel10" x="1578" y="726" width="320" height="32"/>
+    <SubTexture name="fuelcan" x="583" y="1383" width="43" height="50"/>
+    <SubTexture name="lose1" x="2" y="2" width="640" height="640"/>
+    <SubTexture name="lose2" x="644" y="2" width="640" height="640"/>
+    <SubTexture name="mainM" x="1286" y="2" width="640" height="640"/>
+    <SubTexture name="meteor1" x="1596" y="644" width="48" height="48"/>
+    <SubTexture name="meteor2" x="1646" y="644" width="48" height="48"/>
+    <SubTexture name="meteor3" x="1553" y="803" width="61" height="56"/>
+    <SubTexture name="meteorC2" x="1734" y="674" width="16" height="16"/>
+    <SubTexture name="meteorC3" x="1752" y="689" width="16" height="16"/>
+    <SubTexture name="meteorCorner" x="1770" y="689" width="16" height="16"/>
+    <SubTexture name="meteorE" x="1696" y="686" width="16" height="16"/>
+    <SubTexture name="meteorF" x="1714" y="692" width="16" height="16"/>
+    <SubTexture name="meteorFull" x="1732" y="692" width="16" height="16"/>
+    <SubTexture name="meteorGold" x="1750" y="707" width="16" height="16"/>
+    <SubTexture name="meteorO" x="1768" y="707" width="16" height="16"/>
+    <SubTexture name="meteorSide" x="1596" y="694" width="16" height="16"/>
+    <SubTexture name="msgbox" x="628" y="1341" width="579" height="85"/>
+    <SubTexture name="phone" x="1734" y="644" width="27" height="28" frameX="-2" frameY="-1" frameWidth="32" frameHeight="32"/>
+    <SubTexture name="ship" x="583" y="1286" width="43" height="95"/>
+    <SubTexture name="star1a" x="1614" y="694" width="16" height="16"/>
+    <SubTexture name="star1b" x="1632" y="694" width="16" height="16"/>
+    <SubTexture name="star1c" x="1650" y="694" width="16" height="16"/>
+    <SubTexture name="star2a" x="1668" y="694" width="16" height="16"/>
+    <SubTexture name="star2b" x="1686" y="704" width="16" height="16"/>
+    <SubTexture name="star2c" x="1876" y="644" width="16" height="16"/>
+    <SubTexture name="star3a" x="1876" y="662" width="16" height="16"/>
+    <SubTexture name="star3b" x="1876" y="680" width="16" height="16"/>
+    <SubTexture name="star3c" x="1876" y="698" width="16" height="16"/>
+    <SubTexture name="starB" x="1894" y="644" width="16" height="16"/>
+    <SubTexture name="win1" x="2" y="644" width="640" height="640"/>
+    <SubTexture name="wrench" x="1763" y="644" width="25" height="25" frameX="-3" frameY="-4" frameWidth="32" frameHeight="32"/>
+</TextureAtlas>
