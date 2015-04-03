@@ -59,10 +59,11 @@ class Root extends Sprite {
 			if (ratio == 1) {
 
 				//Start the game music
-				musicChannel = assets.playSound("music");
-				musicChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, soundComplete);
-				transform = new SoundTransform(0.3, 0);
-				musicChannel.soundTransform = transform;
+				//musicChannel = 
+				assets.playSound("music" ,0, 10000);
+				// musicChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, soundComplete);
+				// transform = new SoundTransform(0.3, 0);
+				// musicChannel.soundTransform = transform;
 
 				// fade the loading screen, start game
 				Starling.juggler.tween(startup.loadingBitmap, 1.0, {
@@ -77,11 +78,11 @@ class Root extends Sprite {
 	}
 
 	/** Start the music after it's finished playing */
-	function soundComplete(e:flash.events.Event)
-	{
-		musicChannel = assets.playSound("game_music");
-		musicChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, soundComplete);
-		musicChannel.soundTransform = transform;
-	}
+	// function soundComplete(e:flash.events.Event)
+	// {
+	// 	musicChannel = assets.playSound("game_music", 0, 0);
+	// 	musicChannel.addEventListener(flash.events.Event.SOUND_COMPLETE, soundComplete);
+	// 	musicChannel.soundTransform = transform;
+	// }
 
 }
