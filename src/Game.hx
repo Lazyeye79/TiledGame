@@ -16,6 +16,7 @@ class Game extends Sprite{
 	public var wrench1:Image;
 	public var wrench2:Image;
 	public var wrench3:Image;
+	public var tb:Image;
 
 	public var collected:Int;
 	
@@ -28,6 +29,9 @@ class Game extends Sprite{
 	private var numOfFuel = 5;
 	private var mapSize = 1300;
 	private var health = 3;
+	private var portnum:Int;
+	private var counts:Int = 0;
+	private var boxopen:Int = 0;
 
 	// Numerical key codes for WASD
 	public var K_UP : Int	 = 87;
@@ -254,11 +258,21 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfCharacters) {
 			if (characters[num].collisionTest(ship) == true) {
-				world.removeChild(characters[num]);
+				trace(num);
+				portnum = num;
+				var ef:EnterFrameEvent = new EnterFrameEvent("clock",1);
+				addEventListener(Event.ENTER_FRAME, displayport);
+				tb = new Image(Root.assets.getTexture(""+(num+1)));
+				rootSprite.addChild(tb);
+				tb.x = 200;
+				tb.y = 500;
+				boxopen = 1;
 				counter.updateText();
+				world.removeChild(characters[num]);
 				characters[num].x = -30;
 				characters[num].y = -30;
 				collected += 1;
+				trace("Collected " + collected + "characters");
 			}
 		}
 		
@@ -449,4 +463,23 @@ class Game extends Sprite{
 			rootSprite.addChild(menu);
 		}
 	}
+
+
+		private function displayport(e:EnterFrameEvent)
+	{
+
+		counts = counts + 1;
+
+		if(counts == 400)
+		{
+			trace("remove pic");
+			counts = 0;
+			if(boxopen == 1){
+
+			rootSprite.removeChild(tb);
+			boxopen == 0;
+		}
+		}
+	}
+
 }
