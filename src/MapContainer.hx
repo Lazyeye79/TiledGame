@@ -22,11 +22,11 @@ class MapContainer extends Sprite{
 	public function updateMap(shipX:Float, shipY:Float){
 		var size = this.numChildren;
 		
-		for(i in 0...size){
-			if(this.getChildAt(i).height == 16){
-				if(this.getChildAt(i))
-			}
-		}
+		// for(i in 0...size){
+		// 	if(this.getChildAt(i).height == 16){
+		// 		if(this.getChildAt(i))
+		// 	}
+		// }
 	}
 
 	public function onEnterFrame(event:EnterFrameEvent){

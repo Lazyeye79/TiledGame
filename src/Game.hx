@@ -4,6 +4,7 @@ import starling.events.Event;
 import starling.events.EnterFrameEvent;
 import starling.events.KeyboardEvent;
 import flash.geom.Rectangle;
+import starling.text.TextField;
 
 
 class Game extends Sprite{
@@ -15,9 +16,13 @@ class Game extends Sprite{
 	public var wrench1:Image;
 	public var wrench2:Image;
 	public var wrench3:Image;
+
+	public var collected:Int;
 	
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
+	private var characters:Array<Character>;
+	private var numOfCharacters:Int = 7;
 	private var numOfAsteroids = 100;
 	private var numOfFuel = 5;
 	private var mapSize = 3000;
@@ -33,6 +38,8 @@ class Game extends Sprite{
 	public var D_DOWN : Int = 40;
 	public var D_LEFT : Int = 37;
 	public var D_RIGHT : Int = 39;
+	
+	private var flag = true;
 
 
 
@@ -59,7 +66,7 @@ class Game extends Sprite{
 
 		super();
 		this.rootSprite = rootSprite;
-		var menu = new Menu();
+		var menu = new Menu(Menu, rootSprite);
 		rootSprite.addChild(menu);
 		menu.addEventListener(EnterFrameEvent.ENTER_FRAME, 
 			function(){
@@ -75,6 +82,8 @@ class Game extends Sprite{
 		asteroid = new Array<Asteroid>();
 
 		fuelcan = new Array<FuelCan>();
+
+		characters = new Array<Character>();
 
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
@@ -101,7 +110,6 @@ class Game extends Sprite{
 		fuel10.x = 20;
 		fuel10.y = 20;
 		rootSprite.addChild(fuel10);
-
 
 		ship = new Image(Root.assets.getTexture("ship"));
 		ship.x = fx + 300;
@@ -132,9 +140,13 @@ class Game extends Sprite{
 
 		generateFuel();
 
+		generateCharacters();
+
 	}
 
-	public function onEnterFrame(event:EnterFrameEvent){
+	public function onEnterFrame(event:EnterFrameEvent) {
+		
+
 
 		updateVelocity();
 		world.setCoords(ship.x, ship.y);
@@ -234,23 +246,27 @@ class Game extends Sprite{
 				//trace("You collect fuel", num);
 			}
 		}
-
-		if (fuel <= 0){
-			rootSprite.removeChildren(0, rootSprite.numChildren);
-			var loss = new Image(Root.assets.getTexture("lose2"));
-			rootSprite.addChild(loss);
-			//Add press space to return to main menu
+		var num;
+		for (num in 0...numOfCharacters) {
+			if (characters[num].collisionTest(ship) == true) {
+				world.removeChild(characters[num]);
+				characters[num].x = -30;
+				characters[num].y = -30;
+				collected += 1;
+				trace("Collected " + collected + "characters");
+			}
 		}
-		if(health <= 0){
-			rootSprite.removeChildren(0, rootSprite.numChildren);
-			var loss = new Image(Root.assets.getTexture("lose1"));
-			rootSprite.addChild(loss);
-			//Add press space to return to main menu
-		}
+		
+		if (health <= 0)
+			gameOver();
+		if (fuel <= 0)
+			gameOverOoF();
+		if (collected == 7)
+			gameWin();
 
 	}
 
-	public function keyDown( event:KeyboardEvent ){
+	public function keyDown( event:KeyboardEvent ) {
 
 		var keyCode:Int = event.keyCode;
 		if(!isBound(keyCode))
@@ -260,7 +276,6 @@ class Game extends Sprite{
 			return;
 			
 		keyMap.set(keyCode, true);
-
 	}
 
 	public function keyUp( event:KeyboardEvent ){
@@ -377,6 +392,57 @@ class Game extends Sprite{
 				}
 			}
 			world.addChild(fuelcan[num]);
+		}
+	}
+
+	public function generateCharacters() {
+		var num;
+		for (num in 0...numOfCharacters) {
+			//trace("character"+(num+1));
+			characters[num] = new Character("character"+(num+1));
+			//trace("1");
+			characters[num].x = Std.random(mapSize);
+			//trace("2");
+			characters[num].y = Std.random(mapSize);
+			//trace("3");
+			for (Asteroid in asteroid) {
+			 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
+			 		characters[num].x = Std.random(mapSize);
+			 	}
+			 	while (Math.abs(Asteroid.y - characters[num].y) < 30) {
+			 		characters[num].y = Std.random(mapSize);
+			 	}
+			 }
+			world.addChild(characters[num]);
+		}
+	}
+	
+	
+	
+	private function gameOverOoF() {
+		if (flag) {
+			flag = false;
+			rootSprite.removeChildren();
+			var menu = new Menu(OutOfFuel, rootSprite);
+			rootSprite.addChild(menu);
+		}
+	}
+	
+	private function gameOver() {
+		if (flag) {
+			flag = false;
+			rootSprite.removeChildren();
+			var menu = new Menu(GameOver, rootSprite);
+			rootSprite.addChild(menu);
+		}
+	}
+
+	private function gameWin() {
+		if (flag) {
+			flag = false;
+			rootSprite.removeChildren();
+			var menu = new Menu(GameWin, rootSprite);
+			rootSprite.addChild(menu);
 		}
 	}
 }
