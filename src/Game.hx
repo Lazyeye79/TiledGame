@@ -19,6 +19,7 @@ class Game extends Sprite{
 
 	public var collected:Int;
 	
+	private var counter:Counter;
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
 	private var characters:Array<Character>;
@@ -87,8 +88,8 @@ class Game extends Sprite{
 
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
-		world.x = 0;
-		world.y = 0;
+		world.x = -32;
+		world.y = -32;
 		rootSprite.addChild(world);
 		
 		wrench1 = new Image(Root.assets.getTexture("wrench"));
@@ -115,6 +116,9 @@ class Game extends Sprite{
 		ship.x = fx + 300;
 		ship.y = fy + 250;
 		world.addChild(ship);
+
+		counter = new Counter();
+		rootSprite.addChild(counter);
 
 		gx = ship.x;
 		gy = ship.y;
@@ -251,10 +255,10 @@ class Game extends Sprite{
 		for (num in 0...numOfCharacters) {
 			if (characters[num].collisionTest(ship) == true) {
 				world.removeChild(characters[num]);
+				counter.updateText();
 				characters[num].x = -30;
 				characters[num].y = -30;
 				collected += 1;
-				trace("Collected " + collected + "characters");
 			}
 		}
 		

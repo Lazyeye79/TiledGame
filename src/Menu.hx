@@ -186,7 +186,7 @@ class MenuText extends TextField
 {
 	public function new(w:Int,h:Int,s:String)
 	{
-		super(w,h,s,"Arial",12,0xA00000);
+		super(w,h,s,"font",12,0xA00000);
 		x = Starling.current.stage.stageWidth/2 - w/2;
 		y = Starling.current.stage.stageHeight/2 - h/2;
 
