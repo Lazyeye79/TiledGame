@@ -252,14 +252,12 @@ class Game extends Sprite{
 				world.removeChild(fuelcan[num]);
 				fuelcan[num].x = -30;
 				fuelcan[num].y = -30;
-				//trace("You collect fuel", num);
 			}
 		}
 		var num;
 		for (num in 0...numOfCharacters) {
 			if (characters[num].collisionTest(ship) == true) {
 				if(boxopen == 1) rootSprite.removeChild(tb);
-				trace(num);
 				portnum = num;
 				var ef:EnterFrameEvent = new EnterFrameEvent("clock",1);
 				addEventListener(Event.ENTER_FRAME, displayport);
@@ -273,7 +271,6 @@ class Game extends Sprite{
 				characters[num].x = -30;
 				characters[num].y = -30;
 				collected += 1;
-				trace("Collected " + collected + "characters");
 			}
 		}
 		
@@ -473,7 +470,6 @@ class Game extends Sprite{
 
 		if(counts == 400)
 		{
-			trace("remove pic");
 			counts = 0;
 			if(boxopen == 1){
 
