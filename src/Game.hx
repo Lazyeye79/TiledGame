@@ -16,17 +16,25 @@ class Game extends Sprite{
 	public var wrench1:Image;
 	public var wrench2:Image;
 	public var wrench3:Image;
+	public var tb:Image;
 
 	public var collected:Int;
 	
+	private var counter:Counter;
 	private var asteroid:Array<Asteroid>;
 	private var fuelcan:Array<FuelCan>;
 	private var characters:Array<Character>;
 	private var numOfCharacters:Int = 7;
-	private var numOfAsteroids = 100;
+	private var numOfAsteroids = 25;
 	private var numOfFuel = 5;
-	private var mapSize = 3000;
+	private var mapSize = 1270;
 	private var health = 3;
+	private var portnum:Int;
+	private var counts:Int = 0;
+	private var boxopen:Int = 0;
+		private var lx:Float = 0;
+		private var ly:Float = 0;
+
 
 	// Numerical key codes for WASD
 	public var K_UP : Int	 = 87;
@@ -41,7 +49,8 @@ class Game extends Sprite{
 	
 	private var flag = true;
 
-
+	public var xstuff :Array<Float> = new Array<Float>();
+    public var ystuff :Array<Float> = new Array<Float>();
 
 	//Map to keep track of what keys are being pressed
 	private var keyMap : Map<Int, Bool> = new Map<Int, Bool>();
@@ -87,8 +96,8 @@ class Game extends Sprite{
 
 		mapGenerator = new GenerateMap();
 		world = new World(mapGenerator.getMap());
-		world.x = 0;
-		world.y = 0;
+		world.x = -32;
+		world.y = -32;
 		rootSprite.addChild(world);
 		
 		wrench1 = new Image(Root.assets.getTexture("wrench"));
@@ -115,6 +124,9 @@ class Game extends Sprite{
 		ship.x = fx + 300;
 		ship.y = fy + 250;
 		world.addChild(ship);
+
+		counter = new Counter();
+		rootSprite.addChild(counter);
 
 		gx = ship.x;
 		gy = ship.y;
@@ -149,6 +161,7 @@ class Game extends Sprite{
 
 
 		updateVelocity();
+		world.setCoords(ship.x, ship.y);
 		//updateMap();
  		
  		//computes the fuel bar
@@ -165,7 +178,7 @@ class Game extends Sprite{
 		gy += vy;
 
 
-		if(ship.x > 500 && gx < (mapGenerator.map.length * 16) - 356 ){
+		if(ship.x > 450 && gx < (mapGenerator.map.length * 16) - 356 ){
 
 		 	world.x -= vx;
 		 	//ship.x -= vx;
@@ -173,7 +186,7 @@ class Game extends Sprite{
 		 	fx += vx;
 		}
 
-		if(ship.y > 400 && gy < (mapGenerator.map.length * 16) - 296 )
+		if(ship.y > 380 && gy < (mapGenerator.map.length * 16) - 296 )
 		{
 		 	world.y -= vy;
 		 	//ship.y -= vy;
@@ -213,6 +226,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfAsteroids) {
 			if (asteroid[num].collisionTest(ship) == true) {
+				Root.assets.playSound("bash");
 				if(health == 3){
 					rootSprite.removeChild(wrench1);
 				}
@@ -232,6 +246,7 @@ class Game extends Sprite{
 		var num;
 		for (num in 0...numOfFuel) {
 			if (fuelcan[num].collisionTest(ship) == true) {
+				Root.assets.playSound("ding");
 				if (fuel <= 400){
 					fuel = fuel + 100;
 				}
@@ -241,18 +256,25 @@ class Game extends Sprite{
 				world.removeChild(fuelcan[num]);
 				fuelcan[num].x = -30;
 				fuelcan[num].y = -30;
-				//trace("You collect fuel", num);
 			}
 		}
-
 		var num;
 		for (num in 0...numOfCharacters) {
 			if (characters[num].collisionTest(ship) == true) {
+				if(boxopen == 1) rootSprite.removeChild(tb);
+				portnum = num;
+				var ef:EnterFrameEvent = new EnterFrameEvent("clock",1);
+				addEventListener(Event.ENTER_FRAME, displayport);
+				tb = new Image(Root.assets.getTexture(""+(num+1)));
+				rootSprite.addChild(tb);
+				tb.x = 25;
+				tb.y = 450;
+				boxopen = 1;
+				counter.updateText();
 				world.removeChild(characters[num]);
 				characters[num].x = -30;
 				characters[num].y = -30;
 				collected += 1;
-				trace("Collected " + collected + "characters");
 			}
 		}
 		
@@ -351,7 +373,7 @@ class Game extends Sprite{
 	
 	
 	public function generateAsteroids() {
-		numOfAsteroids = 100;
+		//numOfAsteroids = 100;
 		var num;
 		for (num in 0...numOfAsteroids) {
 			asteroid[num] = new Asteroid("meteor" + (Std.random(3) + 1));
@@ -360,8 +382,12 @@ class Game extends Sprite{
 			var check;
 			for (check in 0...num - 1) {
 				while (Math.sqrt((asteroid[num].x - asteroid[check].x) * (asteroid[num].x - asteroid[check].x) + (asteroid[num].y - asteroid[check].y) * (asteroid[num].y - asteroid[check].y)) < 117) {
+					
+			//while( checkSelf(asteroid[num].x, asteroid[num].y) == false)
+			//{
 					asteroid[num].x = Std.random(mapSize);
 					asteroid[num].y = Std.random(mapSize);
+			//}
 				}
 			}
 			world.addChild(asteroid[num]);
@@ -374,7 +400,6 @@ class Game extends Sprite{
 				meteor.y = meteor.y + 110;
 			}
 		}
-		world.mapContainer.flatten();
 	}
 
 	public function generateFuel() {
@@ -383,14 +408,19 @@ class Game extends Sprite{
 			fuelcan[num] = new FuelCan("fuelcan");
 			fuelcan[num].x = Std.random(mapSize);
 			fuelcan[num].y = Std.random(mapSize);
+
 			for (Asteroid in asteroid) {
-				while (Math.abs(Asteroid.x - fuelcan[num].x) < 30) {
+				while ((Math.abs(Asteroid.x - fuelcan[num].x) < 30)&& ( checkSelf(fuelcan[num].x, fuelcan[num].y) == false)) {
 					fuelcan[num].x = Std.random(mapSize);
 				}
-				while (Math.abs(Asteroid.y - fuelcan[num].y) < 30) {
+				while ((Math.abs(Asteroid.y - fuelcan[num].y) < 30)&& ( checkSelf(fuelcan[num].x, fuelcan[num].y) == false))   {
 					fuelcan[num].y = Std.random(mapSize);
 				}
 			}
+
+			xstuff.push(fuelcan[num].x);
+			//trace(characters[num].x);
+			ystuff.push(fuelcan[num].y);
 			world.addChild(fuelcan[num]);
 		}
 	}
@@ -398,18 +428,19 @@ class Game extends Sprite{
 	public function generateCharacters() {
 		var num;
 		for (num in 0...numOfCharacters) {
-			//trace("character"+(num+1));
 			characters[num] = new Character("character"+(num+1));
-			//trace("1");
-			characters[num].x = Std.random(mapSize);
-			//trace("2");
-			characters[num].y = Std.random(mapSize);
-			//trace("3");
+			while( checkSelf(characters[num].x, characters[num].y) == false)
+			{
+			characters[num].x = Std.random(mapSize)+200;
+			characters[num].y = Std.random(mapSize)+200;
+			}
+			xstuff.push(characters[num].x);
+			ystuff.push(characters[num].y);
 			for (Asteroid in asteroid) {
 			 	while (Math.abs(Asteroid.x - characters[num].x) < 30) {
-			 		characters[num].x = Std.random(mapSize);
+			 		characters[num].x = Std.random(mapSize) + 10;
 			 	}
-			 	while (Math.abs(Asteroid.y - characters[num].y) < 30) {
+			 	while (Math.abs(Asteroid.y - characters[num].y + 10) < 30) {
 			 		characters[num].y = Std.random(mapSize);
 			 	}
 			 }
@@ -422,6 +453,7 @@ class Game extends Sprite{
 	private function gameOverOoF() {
 		if (flag) {
 			flag = false;
+			rootSprite.dispose();
 			rootSprite.removeChildren();
 			var menu = new Menu(OutOfFuel, rootSprite);
 			rootSprite.addChild(menu);
@@ -431,6 +463,7 @@ class Game extends Sprite{
 	private function gameOver() {
 		if (flag) {
 			flag = false;
+			rootSprite.dispose();
 			rootSprite.removeChildren();
 			var menu = new Menu(GameOver, rootSprite);
 			rootSprite.addChild(menu);
@@ -440,9 +473,45 @@ class Game extends Sprite{
 	private function gameWin() {
 		if (flag) {
 			flag = false;
+			rootSprite.dispose();
 			rootSprite.removeChildren();
 			var menu = new Menu(GameWin, rootSprite);
 			rootSprite.addChild(menu);
 		}
 	}
+
+
+		private function displayport(e:EnterFrameEvent)
+	{
+
+		counts = counts + 1;
+
+		if(counts == 400)
+		{
+			counts = 0;
+			if(boxopen == 1){
+
+			rootSprite.removeChild(tb);
+			boxopen == 0;
+		}
+		}
+	}
+
+
+
+	public function checkSelf(x:Float, y:Float) : Bool
+	{
+		var c:Int;
+		for(c in 0... xstuff.length){
+		
+		if((x > xstuff[c]-100 && x < xstuff[c]+100) && (y > ystuff[c]-100 && x < ystuff[c]+100) ) return false;
+		//trace("false'");
+
+
+		}
+		//trace("true");
+		return true;
+
+	}
+
 }

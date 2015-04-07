@@ -49,10 +49,15 @@ class Menu extends Sprite{
 		switch(state)
 		{
 			case Menu:
-				title = new MenuText(350,100,"Space Cruise");
+				title = new MenuText(350,150,"  3031:\n");
 				title.fontSize = 45;
 				title.y = 300;
 				addChild(title);
+
+				var title2 = new MenuText(450,150," a space rescue");
+				title2.fontSize = 35;
+				title2.y = 350;
+				addChild(title2);
 
 				var play = new MenuButton("Play");
 				play.y = title.y + title.height + 50;
@@ -86,7 +91,7 @@ class Menu extends Sprite{
 				title.y = 300;
 				addChild(title);
 
-				var instr = new MenuText(350, 200, "Move the 'Ship' with WASD or Arrow Keys. Collect the missing space passengers while avoiding the asteroids scattered about. But don't forget to watch your fuel.");
+				var instr = new MenuText(350, 200, "Emergency Broadcast: The cruise ship Icarus has been struck by an asteroid and it's up to you to save the passengers! Move the 'Ship' with WASD or Arrow Keys. Collect the missing space passengers while avoiding the asteroids scattered about. But don't forget to watch your fuel.");
 				instr.fontSize = 18;
 				instr.x = Starling.current.stage.stageWidth/2 - instr.width/2;
 				instr.y = title.y + title.height/2;
@@ -106,7 +111,7 @@ class Menu extends Sprite{
 				addChild(title);
 
 				var cred = new MenuText(300,200,"Credits\n--------"+
-				"\nJordan Harris\tCherie Parsons\nErin Bailey\tTeam Member\nTeam Member\tTeam Member");
+				"\nJosh Frampton\nCherie Parsons\nErin Bailey\nJonathon Todd\nZowie Haugaard\nJordan Harris");
 				cred.fontSize = 20;
 				cred.y = title.y + title.height/2;
 				cred.x = Starling.current.stage.stageWidth/2 - cred.width/2;
@@ -186,7 +191,7 @@ class MenuText extends TextField
 {
 	public function new(w:Int,h:Int,s:String)
 	{
-		super(w,h,s,"Arial",12,0xA00000);
+		super(w,h,s,"font",12,0xA00000);
 		x = Starling.current.stage.stageWidth/2 - w/2;
 		y = Starling.current.stage.stageHeight/2 - h/2;
 

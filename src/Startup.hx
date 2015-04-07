@@ -6,7 +6,7 @@ import flash.geom.Rectangle;
 import flash.Lib;
 import starling.core.Starling;
 
-@:bitmap("assets/loading.png")
+@:bitmap("assets/mainM.png")
 class LoadingBitmapData extends flash.display.BitmapData { }
 
 class Startup extends Sprite {
